@@ -21,10 +21,12 @@
   </style>
 </head>
 <body>
+
   <div id="playfield">
   <div id="player"></div>
   <div id="box" style=""></div>
   </div>
+  <div>https://www.youtube.com/watch?v=<input type="text" placeholder="Video ID" id="video-id"/></div>
   <div id="status"></div>
   <div id="time"></div>
   <div id="times"></div>
@@ -73,6 +75,7 @@
     var timeElement = document.getElementById('time');
     var timesElement = document.getElementById('times');
     var body = document.getElementsByTagName('body')[0];
+    var videoInput = document.getElementById('video-id');
     var time;
 
     setInterval(function() {
@@ -91,6 +94,21 @@
       //timeElement.textContent = time;
     }, 100);
 
+    videoInput.value = currentItem.videoId;
+    videoInput.addEventListener('click', function(e) {
+      e.stopPropagation();
+    });
+    videoInput.addEventListener('keyup', function(e) {
+      if (e.keyCode === 13) {
+        if (player && player.stopVideo)
+          player.stopVideo();
+        currentItem.videoId = videoInput.value;
+        console.log( videoInput.value);
+        player.cueVideoById(videoInput.value);
+        player.playVideo();
+      }
+    });
+
     body.addEventListener('click', function() {
       timesElement.innerHTML += time + '<br>';
     });
@@ -98,6 +116,8 @@
     $('#box').draggable({
       containment: "document"
     }).resizable();
+
+
 
 
 
@@ -129,7 +149,7 @@
     //    the player should play for six seconds and then stop.
     var done = false;
     function onPlayerStateChange(event) {
-      if (event.data == YT.PlayerState.PLAYING && !done) {
+      if (event.data == YT.PlayerState.PLAYING) {
         done = true;
       }
     }
