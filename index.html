@@ -1,0 +1,182 @@
+<html>
+<head>
+  <script type="text/javascript"
+      src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script type="text/javascript"
+      src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.js"></script>
+  <link rel="stylesheet" type="text/css"
+      href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/base/jquery-ui.css"/>
+  <style>
+  body {
+    font-family: "Oxygen";
+    text-align: justify;
+  }
+  #info {
+    margin: 0 20px;
+    display: none;
+  }
+  #box {
+    position: absolute;
+  }
+  #success {
+    font-size: 14pt;
+  }
+  a {
+    font-size: 14pt;
+    margin: 39px;
+  }
+  </style>
+  <link href="http://fonts.googleapis.com/css?family=Oxygen" rel="stylesheet" type="text/css">
+  <script src="observable.js" type="text/javascript"></script>
+</head>
+<body>
+  <div id="playfield">
+  <div id="player"></div>
+  <div id="box" style=""></div>
+  </div>
+  <div id="status">Spot the drowning child.</div>
+  <div id="info">
+  <h1>Drowning Doesn't Look Like Drowning</h1>
+
+<p>The Instinctive Drowning Response -- so named by Francesco A. Pia, Ph.D., is what people do to avoid actual or perceived suffocation in the water. And it does not look like what most people expect. There is very little splashing, no waving, and no yelling or calls for help of any kind. To get an idea of just how quiet and undramatic from the surface drowning can be, consider this: It is the number two cause of accidental death in children, age 15 and under (just behind vehicle accidents) -- of the approximately 750 children who will drown next year, about 375 of them will do so within 25 yards of a parent or other adult. In ten percent of those drownings, the adult will actually watch them do it, having no idea it is happening.
+<p>Drowning does not look like drowning -- Dr. Pia, in an article in the Coast Guard's On Scene Magazine, described the instinctive drowning response like this:
+
+<quote>
+<ol>
+<li>Except in rare circumstances, drowning people are physiologically unable to call out for help. The respiratory system was designed for breathing. Speech is the secondary or overlaid function. Breathing must be fulfilled, before speech occurs.
+<li>Drowning people's mouths alternately sink below and reappear above the surface of the water. The mouths of drowning people are not above the surface of the water long enough for them to exhale, inhale, and call out for help. When the drowning people's mouths are above the surface, they exhale and inhale quickly as their mouths start to sink below the surface of the water.
+<li>Drowning people cannot wave for help. Nature instinctively forces them to extend their arms laterally and press down on the water's surface. Pressing down on the surface of the water, permits drowning people to leverage their bodies so they can lift their mouths out of the water to breathe.
+Throughout the Instinctive Drowning Response, drowning people cannot voluntarily control their arm movements. Physiologically, drowning people who are struggling on the surface of the water cannot stop drowning and perform voluntary movements such as waving for help, moving toward a rescuer, or reaching out for a piece of rescue equipment.
+<li>From beginning to end of the Instinctive Drowning Response people's bodies remain upright in the water, with no evidence of a supporting kick. Unless rescued by a trained lifeguard, these drowning people can only struggle on the surface of the water from 20 to 60 seconds before submersion occurs.
+</ol>
+</quote>
+<a href="#" onClick="window.location.reload()">Play Again</a>
+  </div>
+  <script>
+    // 2. This code loads the IFrame Player API code asynchronously.
+    var tag = document.createElement('script');
+
+    tag.src = "https://www.youtube.com/iframe_api";
+    var firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+    var successMsgs = ['Good job.', 'Nice work.', 'Good eye.', 'Well done.', 'Nicely done.'];
+
+    var videos = [{
+      videoId: '4sFuULOY5ik',
+      drowningStartSecs: 12.2,
+      whistleSecs: 14.5,
+      swimmerSavedSecs: 25,
+      findBoxStyle: 'position: absolute; left: 354px; top: 108px; width: 32px; height: 23px;'
+    }, {
+      videoId: 'JYQ9AwsTkAw',
+      drowningStartSecs: 18.4,
+      whistleSecs: 21,
+      swimmerSavedSecs: 28.5,
+      findBoxStyle: 'left: 309px; top: 140px; position: absolute; width: 43px; height: 30px;'
+    }, {
+      videoId: 'PuAfTA2wf7o',
+      drowningStartSecs: 37.3,
+      whistleSecs: 45.1,
+      swimmerSavedSecs: 50.5,
+      findBoxStyle: 'left: 262px; top: 98px; position: absolute; width: 59px; height: 19px;'
+    }, {
+      videoId: 'T5mDQeDkca0',
+      drowningStartSecs: 54.0,
+      whistleSecs: 56.5,
+      swimmerSavedSecs: 62.8,
+      findBoxStyle: 'left: 456px; top: 187px; position: absolute; width: 73px; height: 63px;',
+    }];
+
+    var currentItem = videos[Math.floor(Math.random()*videos.length)]; // Pick one at random.
+    var findBox = document.getElementById('box');
+    var statusBox = document.getElementById('status');
+    var infoBox = document.getElementById('info');
+
+    setInterval(function() {
+      if (!player || !player.getCurrentTime || player.getPlayerState() !== YT.PlayerState.PLAYING)
+          return;
+      var time = player.getCurrentTime();
+      currentItem.status('ok');
+      if (time > currentItem.swimmerSavedSecs) {
+          currentItem.status('saved');
+      } else if (time > currentItem.whistleSecs) {
+          currentItem.status('spotted');
+      } else if (time > currentItem.drowningStartSecs) {
+          currentItem.status('drowning');
+      }
+    }, 100);
+
+    function setupItem(nextItem) {
+      nextItem.status = observable();
+      player.cueVideoById(nextItem.videoId);
+      findBox.setAttribute('style', nextItem.findBoxStyle);
+      player.playVideo();
+
+      currentItem.status(function(newStatus) {
+        if (newStatus === 'saved') {
+          end();
+        }
+      });
+    }
+
+    function success() {
+      statusBox.textContent = successMsgs[Math.floor(Math.random()*successMsgs.length)];
+    }
+
+    function end() {
+      infoBox.setAttribute('style', 'display: block;');
+    }
+
+    findBox.addEventListener('click', function() {
+      if (currentItem.status() === 'drowning' || currentItem.status() === 'spotted') {
+        success();
+        player.seekTo(currentItem.whistleSecs);
+        player.setPlaybackRate(2);
+      }
+    });
+
+
+    // 3. This function creates an <iframe> (and YouTube player)
+    //    after the API code downloads.
+    var player;
+    function onYouTubeIframeAPIReady() {
+      player = new YT.Player('player', {
+        height: '390',
+        width: '640',
+        videoId: currentItem.videoId,
+        playerVars: {
+          controls: 0
+        },
+        events: {
+          'onReady': onPlayerReady,
+          'onStateChange': onPlayerStateChange
+        }
+      });
+    }
+
+    // 4. The API will call this function when the video player is ready.
+    function onPlayerReady(event) {
+      setupItem(currentItem);
+    }
+
+    // 5. The API calls this function when the player's state changes.
+    //    The function indicates that when playing a video (state=1),
+    //    the player should play for six seconds and then stop.
+    var done = false;
+    function onPlayerStateChange(event) {
+      if (event.data == YT.PlayerState.ENDED) {
+        var y = $(window).scrollTop();
+      }
+      if (event.data == YT.PlayerState.PLAYING && !done) {
+        done = true;
+      } else {
+
+      }
+    }
+    function stopVideo() {
+      player.stopVideo();
+    }
+  </script>
+
+</body>
+</html>
