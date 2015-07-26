@@ -7,14 +7,17 @@
   <link rel="stylesheet" type="text/css"
       href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.1/themes/base/jquery-ui.css"/>
   <style>
+  #status {
+    font-size: 18px;
+  }
   #box {
     background-color: rgba(255, 0, 0, 0.33);
     border: 1px solid red;
     width: 100px;
     height: 100px;
     position: absolute;
-    left: 354px; top: 108px; width: 32px; height: 23px;
   }
+
   </style>
 </head>
 <body>
@@ -39,14 +42,32 @@
       whistleSecs: 14.5,
       swimmerSavedSecs: 25,
       findBoxStyle: 'position: absolute; left: 354px; top: 108px; width: 32px; height: 23px;'
+    }, {
+      videoId: 'JYQ9AwsTkAw',
+      drowningStartSecs: 18.4,
+      whistleSecs: 21,
+      swimmerSavedSecs: 28.5,
+      findBoxStyle: 'left: 309px; top: 140px; position: absolute; width: 43px; height: 30px;'
+    }, {
+      videoId: 'PuAfTA2wf7o',
+      drowningStartSecs: 37.3,
+      whistleSecs: 45.1,
+      swimmerSavedSecs: 50.5,
+      findBoxStyle: 'left: 262px; top: 98px; position: absolute; width: 59px; height: 19px;'
+    }, {
+      videoId: 'T5mDQeDkca0',
+      drowningStartSecs: 54.0,
+      whistleSecs: 56.5,
+      swimmerSavedSecs: 62.8,
+      findBoxStyle: 'left: 456px; top: 187px; position: absolute; width: 73px; height: 63px;'
     }];
 
     var currentItem = {
-      videoId: '4sFuULOY5ik',
-      drowningStartSecs: 12.2,
-      whistleSecs: 14.5,
-      swimmerSavedSecs: 25,
-      findBoxStyle: 'position: absolute; left: 354px; top: 108px; width: 32px; height: 23px;'
+      videoId: 'T5mDQeDkca0',
+      drowningStartSecs: 54.0,
+      whistleSecs: 56.5,
+      swimmerSavedSecs: 62.8,
+      findBoxStyle: 'left: 456px; top: 187px; position: absolute; width: 73px; height: 63px;'
     };
     var statusElement = document.getElementById('status');
     var timeElement = document.getElementById('time');
@@ -67,7 +88,7 @@
           status = 'drowning';
       }
       statusElement.textContent = status;
-      timeElement.textContent = time;
+      //timeElement.textContent = time;
     }, 100);
 
     body.addEventListener('click', function() {
