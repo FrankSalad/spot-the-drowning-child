@@ -15,21 +15,27 @@
     border: 1px solid red;
     width: 100px;
     height: 100px;
-    position: absolute;
+    position: relative;
   }
 
   </style>
 </head>
 <body>
-
+  <div>https://www.youtube.com/watch?v=<input type="text" placeholder="Video ID" id="video-id"/></div>
+  Status: <span id="status"></span>
+  <div>
+    <button onclick="setDrowningSecs()">Set Drowning Time</button>
+    <button onclick="setWhistleSecs()">Set Whistle Time</button>
+    <button onclick="setSavedSecs()">Set Swimmer Saved Time</button>
+  </div>
+  <pre id="output">
+  </pre>
   <div id="playfield">
   <div id="player"></div>
   <div id="box" style=""></div>
+
   </div>
-  <div>https://www.youtube.com/watch?v=<input type="text" placeholder="Video ID" id="video-id"/></div>
-  <div id="status"></div>
-  <div id="time"></div>
-  <div id="times"></div>
+
   <script>
     // 2. This code loads the IFrame Player API code asynchronously.
     var tag = document.createElement('script');
@@ -66,16 +72,17 @@
 
     var currentItem = {
       videoId: 'T5mDQeDkca0',
-      drowningStartSecs: 54.0,
-      whistleSecs: 56.5,
-      swimmerSavedSecs: 62.8,
-      findBoxStyle: 'left: 456px; top: 187px; position: absolute; width: 73px; height: 63px;'
+      drowningStartSecs: Infinity,
+      whistleSecs: Infinity,
+      swimmerSavedSecs: Infinity,
+      findBoxStyle: null
     };
     var statusElement = document.getElementById('status');
     var timeElement = document.getElementById('time');
     var timesElement = document.getElementById('times');
     var body = document.getElementsByTagName('body')[0];
     var videoInput = document.getElementById('video-id');
+    var outputElement = document.getElementById('output');
     var time;
 
     setInterval(function() {
@@ -91,7 +98,9 @@
           status = 'drowning';
       }
       statusElement.textContent = status;
-      //timeElement.textContent = time;
+
+      var output = JSON.stringify(currentItem, undefined, 2);
+      outputElement.innerHTML = output;
     }, 100);
 
     videoInput.value = currentItem.videoId;
@@ -103,19 +112,44 @@
         if (player && player.stopVideo)
           player.stopVideo();
         currentItem.videoId = videoInput.value;
-        console.log( videoInput.value);
         player.cueVideoById(videoInput.value);
         player.playVideo();
       }
     });
 
-    body.addEventListener('click', function() {
-      timesElement.innerHTML += time + '<br>';
-    });
+    function setDrowningSecs() {
+      currentItem.drowningStartSecs = player.getCurrentTime();
+    }
 
-    $('#box').draggable({
-      containment: "document"
-    }).resizable();
+    function setWhistleSecs() {
+      currentItem.whistleSecs = player.getCurrentTime();
+    }
+
+    function setSavedSecs() {
+      currentItem.swimmerSavedSecs = player.getCurrentTime();
+    }
+
+
+    var resizeableObj = $('#box');
+    var lastPosition = resizeableObj.position();
+
+    resizeableObj.draggable({
+      containment: "#playfield",
+      stop: function(event, ui) {
+        lastPosition = ui.position;
+        currentItem.findBoxStyle = resizeableObj.attr('style');
+      }
+    }).resizable({
+        stop: function(event, ui) {
+          // Reset to relative positioning
+          resizeableObj.css({
+            position: "relative",
+            top: lastPosition.top,
+            left: lastPosition.left
+          });
+          currentItem.findBoxStyle = resizeableObj.attr('style');
+        }
+    });
 
 
 
