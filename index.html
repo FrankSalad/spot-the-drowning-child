@@ -24,6 +24,9 @@
     #status {
       color: #CCC;
     }
+    #playfield {
+      height: 500px;
+    }
     a {
       font-size: 14pt;
       margin: 39px;
@@ -75,25 +78,25 @@ Throughout the Instinctive Drowning Response, drowning people cannot voluntarily
       drowningStartSecs: 12.2,
       whistleSecs: 14.5,
       swimmerSavedSecs: 25,
-      findBoxStyle: 'position: absolute; left: 354px; top: 108px; width: 32px; height: 23px;'
+      findBoxStyle: "left: 455px; top: -365px; position: relative; width: 50px; height: 34px;"
     }, {
       videoId: 'JYQ9AwsTkAw',
       drowningStartSecs: 18.4,
       whistleSecs: 21,
       swimmerSavedSecs: 28.5,
-      findBoxStyle: 'left: 309px; top: 140px; position: absolute; width: 43px; height: 30px;'
+      findBoxStyle: "left: 383px; top: -326px; position: relative; width: 80px; height: 65px;"
     }, {
       videoId: 'PuAfTA2wf7o',
       drowningStartSecs: 37.3,
       whistleSecs: 45.1,
       swimmerSavedSecs: 50.5,
-      findBoxStyle: 'left: 262px; top: 98px; position: absolute; width: 59px; height: 19px;'
+      findBoxStyle: "left: 329px; top: -385px; position: relative; width: 103px; height: 37px;"
     }, {
       videoId: 'T5mDQeDkca0',
       drowningStartSecs: 54.0,
       whistleSecs: 56.5,
       swimmerSavedSecs: 62.8,
-      findBoxStyle: 'left: 456px; top: 187px; position: absolute; width: 73px; height: 63px;',
+      findBoxStyle: "left: 606px; top: -265px; position: relative; width: 102px; height: 102px;",
     }];
 
     var currentItem = videos[Math.floor(Math.random()*videos.length)]; // Pick one at random.
@@ -163,11 +166,13 @@ Throughout the Instinctive Drowning Response, drowning people cannot voluntarily
     var player;
     function onYouTubeIframeAPIReady() {
       player = new YT.Player('player', {
-        height: '390',
-        width: '640',
+        height: '480',
+        width: '854',
         videoId: currentItem.videoId,
         playerVars: {
-          controls: 0
+          controls: 0,
+          rel: 0,
+          showinfo: 0
         },
         events: {
           'onReady': onPlayerReady,
