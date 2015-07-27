@@ -28,9 +28,12 @@
     #playfield {
       height: 500px;
     }
-    #replay {
+    .links {
       font-size: 14pt;
       margin: 39px;
+    }
+    .attribution {
+      font-size: 75%;
     }
     @-webkit-keyframes example {
         from {background-color: black; color: black;}
@@ -67,10 +70,9 @@ Throughout the Instinctive Drowning Response, drowning people cannot voluntarily
 <li>From beginning to end of the Instinctive Drowning Response people's bodies remain upright in the water, with no evidence of a supporting kick. Unless rescued by a trained lifeguard, these drowning people can only struggle on the surface of the water from 20 to 60 seconds before submersion occurs.
 </ol>
 </quote>
-<p class="attribution" style="
-    font-size: 80%;
-">Courtesy Mario Vittone <a href="http://mariovittone.com/2010/05/154/">http://mariovittone.com/2010/05/154/</a></p>
-<a id="replay" href="#" onClick="window.location.reload()">Play Again</a>
+<p class="attribution">Courtesy Mario Vittone <a href="http://mariovittone.com/2010/05/154/">http://mariovittone.com/2010/05/154/</a></p>
+<a class="links" href="#" onClick="window.location.reload()">Play Again</a>
+<a class="links" href="https://github.com/FrankSalad/spot-the-drowning-child">About the Game</a>
   </div>
   <script>
     // 2. This code loads the IFrame Player API code asynchronously.
@@ -129,7 +131,7 @@ Throughout the Instinctive Drowning Response, drowning people cannot voluntarily
     function setupItem(nextItem) {
       nextItem.status = observable();
       nextItem.status('ok');
-      player.cueVideoById(nextItem.videoId);
+      player.cueVideoById(nextItem.videoId, undefined, 'large');
       findBox.setAttribute('style', nextItem.findBoxStyle);
       player.playVideo();
 
