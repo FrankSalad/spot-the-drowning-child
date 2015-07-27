@@ -204,7 +204,7 @@ Throughout the Instinctive Drowning Response, drowning people cannot voluntarily
       } else if (event.data === YT.PlayerState.PAUSED) {
         if (status === 'drowning' || status === 'ok') {
           var pauseMsg = pickRandom(pauseMsgs);
-          showStatus(pauseMsg + ' Click again to keep looking.');
+          showStatus(pauseMsg + ' Keep looking.');
         } else if (status === 'spotted' || status === 'saved') {
           end();
         }
