@@ -1,7 +1,7 @@
 # swim-rescue
 Lifeguarding Game
 
-[spotthedrowningchild.com](http://spotthedrowningchild.com]
+[spotthedrowningchild.com](http://spotthedrowningchild.com)
 
 I wanted to figure out a better way of spreading knowledge about the instinctive drowning response. People who are drowning often go unnoticed by others closeby. 
 
