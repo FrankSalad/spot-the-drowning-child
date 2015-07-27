@@ -60,6 +60,7 @@ Throughout the Instinctive Drowning Response, drowning people cannot voluntarily
     var firstScriptTag = document.getElementsByTagName('script')[0];
     firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
     var successMsgs = ['Good job.', 'Nice work.', 'Good eye.', 'Well done.', 'Nicely done.'];
+    var pauseMsgs = ['Looks fine there.', 'Seems ok.', 'All clear there.', 'Just splashing around.'];
 
     var videos = [{
       videoId: '4sFuULOY5ik',
@@ -96,18 +97,18 @@ Throughout the Instinctive Drowning Response, drowning people cannot voluntarily
       if (!player || !player.getCurrentTime || player.getPlayerState() !== YT.PlayerState.PLAYING)
           return;
       var time = player.getCurrentTime();
-      currentItem.status('ok');
-      if (time > currentItem.swimmerSavedSecs) {
+      if (time > currentItem.swimmerSavedSecs && currentItem.status() === 'spotted') {
           currentItem.status('saved');
-      } else if (time > currentItem.whistleSecs) {
+      } else if (time > currentItem.whistleSecs && currentItem.status() === 'drowning') {
           currentItem.status('spotted');
-      } else if (time > currentItem.drowningStartSecs) {
+      } else if (time > currentItem.drowningStartSecs && currentItem.status() === 'ok') {
           currentItem.status('drowning');
       }
     }, 100);
 
     function setupItem(nextItem) {
       nextItem.status = observable();
+      nextItem.status('ok');
       player.cueVideoById(nextItem.videoId);
       findBox.setAttribute('style', nextItem.findBoxStyle);
       player.playVideo();
@@ -120,7 +121,8 @@ Throughout the Instinctive Drowning Response, drowning people cannot voluntarily
     }
 
     function success() {
-      statusBox.textContent = successMsgs[Math.floor(Math.random()*successMsgs.length)];
+      var msg = pickRandom(successMsgs);
+      showStatus(msg);
     }
 
     function end() {
@@ -129,11 +131,23 @@ Throughout the Instinctive Drowning Response, drowning people cannot voluntarily
 
     findBox.addEventListener('click', function() {
       if (currentItem.status() === 'drowning' || currentItem.status() === 'spotted') {
+        findBox.setAttribute('style', 'display: none;');
         success();
-        player.seekTo(currentItem.whistleSecs);
+        if (currentItem.status() === 'drowning') {
+          player.seekTo(currentItem.whistleSecs);
+        }
+        currentItem.status('spotted');
         player.setPlaybackRate(2);
       }
     });
+
+    function pickRandom(items) {
+      return items[Math.floor(Math.random()*items.length)];
+    }
+
+    function showStatus(text) {
+      statusBox.textContent = text;
+    }
 
 
     // 3. This function creates an <iframe> (and YouTube player)
@@ -162,15 +176,20 @@ Throughout the Instinctive Drowning Response, drowning people cannot voluntarily
     // 5. The API calls this function when the player's state changes.
     //    The function indicates that when playing a video (state=1),
     //    the player should play for six seconds and then stop.
-    var done = false;
     function onPlayerStateChange(event) {
-      if (event.data == YT.PlayerState.ENDED) {
+      var status = currentItem.status();
+      if (event.data === YT.PlayerState.ENDED) {
         var y = $(window).scrollTop();
-      }
-      if (event.data == YT.PlayerState.PLAYING && !done) {
-        done = true;
-      } else {
-
+      } else if (event.data === YT.PlayerState.PAUSED) {
+        if (status === 'drowning' || status === 'ok') {
+          var pauseMsg = pickRandom(pauseMsgs);
+          showStatus(pauseMsg + ' Click again to keep looking.');
+        } else if (status === 'spotted' || status === 'saved') {
+          end();
+        }
+      } else if (event.data === YT.PlayerState.PLAYING &&
+          (status === 'drowning' || status === 'ok')) {
+        showStatus('Spot the drowning child.');
       }
     }
     function stopVideo() {
