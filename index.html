@@ -4,10 +4,16 @@
     body {
       font-family: "Oxygen";
       text-align: justify;
+      background-color: black;
     }
     #info {
-      margin: 0 20px;
       display: none;
+      background-color: black;
+      border-radius: 4px;
+      padding: 1px 23px 30px 23px;
+      margin: 10px;
+
+      font-family: serif;
     }
     #box {
       position: absolute;
@@ -15,10 +21,18 @@
     #success {
       font-size: 14pt;
     }
+    #status {
+      color: #CCC;
+    }
     a {
       font-size: 14pt;
       margin: 39px;
     }
+    @-webkit-keyframes example {
+        from {background-color: black; color: black;}
+        to {background-color: #EFFEFF; color: #0D3E42;}
+    }
+
   </style>
   <link href="http://fonts.googleapis.com/css?family=Oxygen" rel="stylesheet" type="text/css">
   <script src="observable.js" type="text/javascript"></script>
@@ -120,7 +134,7 @@ Throughout the Instinctive Drowning Response, drowning people cannot voluntarily
     }
 
     function end() {
-      infoBox.setAttribute('style', 'display: block;');
+      infoBox.setAttribute('style', 'display: block; -webkit-animation: example 4s; -webkit-animation-fill-mode: forwards;');
     }
 
     findBox.addEventListener('click', function() {
