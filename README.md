@@ -1,4 +1,4 @@
-# swim-rescue
+# spot-the-drowning-child
 Lifeguarding Game
 
 [spotthedrowningchild.com](http://spotthedrowningchild.com)
