@@ -17,23 +17,35 @@
       font-family: serif;
     }
     #box {
-      position: absolute;
+      display: none;
     }
     #success {
       font-size: 14pt;
     }
-    #status {
+    .status {
       color: #CCC;
     }
     #playfield {
       height: 500px;
     }
+    #scorebox {
+      color: #777;
+      font-size: 82%;
+      margin-left: 6px;
+    }
+    #scorebox.win-hue {
+      color: #4B8E34;
+    }
     .links {
       font-size: 14pt;
       margin: 39px;
     }
+    #creator-link {
+      display: none;
+    }
     .attribution {
       font-size: 75%;
+      float: right;
     }
     @-webkit-keyframes example {
         from {background-color: black; color: black;}
@@ -44,7 +56,6 @@
         from {background-color: black; color: black;}
         to {background-color: #EFFEFF; color: #0D3E42;}
     }
-
   </style>
   <link href="http://fonts.googleapis.com/css?family=Oxygen" rel="stylesheet" type="text/css">
   <script src="observable.js" type="text/javascript"></script>
@@ -55,7 +66,10 @@
     <div id="player"></div>
     <div id="box" style=""></div>
   </div>
-  <div id="status">Spot the drowning child.</div>
+  <div class="status">
+    <span id="status">Spot the drowning child.</span>
+    <span id="scorebox"></span>
+  </div>
   <div id="info">
     <h1>Drowning Doesn't Look Like Drowning</h1>
     <p>The Instinctive Drowning Response -- so named by Francesco A. Pia, Ph.D., is what people do to avoid actual or perceived suffocation in the water. And it does not look like what most people expect. There is very little splashing, no waving, and no yelling or calls for help of any kind. To get an idea of just how quiet and undramatic from the surface drowning can be, consider this: It is the number two cause of accidental death in children, age 15 and under (just behind vehicle accidents) -- of the approximately 750 children who will drown next year, about 375 of them will do so within 25 yards of a parent or other adult. In ten percent of those drownings, the adult will actually watch them do it, having no idea it is happening.
@@ -73,6 +87,7 @@
     <p class="attribution">Courtesy Mario Vittone <a href="http://mariovittone.com/2010/05/154/">http://mariovittone.com/2010/05/154/</a></p>
     <a class="links" href="#" onClick="window.location.reload()">Play Again</a>
     <a class="links" href="https://github.com/FrankSalad/spot-the-drowning-child">About the Game</a>
+    <a class="links" id="creator-link" href="creator.html">Level Creator</a>
   </div>
 <script src="game.js" type="text/javascript"></script>
 </body>

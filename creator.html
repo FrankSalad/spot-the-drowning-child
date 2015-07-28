@@ -7,6 +7,12 @@
   <link rel="stylesheet" type="text/css"
       href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.1/themes/base/jquery-ui.css"/>
   <style>
+  body {
+    font-family: "Open Sans" sans-serif;
+  }
+  h1 {
+    font-size: 15pt;
+  }
   #status {
     font-size: 18px;
   }
@@ -17,19 +23,29 @@
     height: 100px;
     position: relative;
   }
+  .tool {
+    margin: 10px 0;
+  }
 
   </style>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans">
 </head>
 <body>
-  <div>https://www.youtube.com/watch?v=<input type="text" placeholder="Video ID" id="video-id"/></div>
-  Swimmer status: <span id="status"></span>
-  <div>
+  <h1>STDC Level Creator Tool</h1>
+  <p>After you have set up the level with the tools below, copy and paste this:</p>
+  <pre id="output">
+  </pre>
+  <p>into a <a href="https://github.com/FrankSalad/spot-the-drowning-child/issues/new">new issue</a>.</p>
+  <ol>
+  <li><div class="tool">Set video url: https://www.youtube.com/watch?v=<input type="text" placeholder="Video ID" id="video-id"/></div>
+  <li><div class="tool">
+    Click at the appropriate times:
     <button onclick="setDrowningSecs()">Set Drowning Time</button>
     <button onclick="setWhistleSecs()">Set Whistle Time</button>
     <button onclick="setSavedSecs()">Set Swimmer Saved Time</button>
   </div>
-  <pre id="output">
-  </pre>
+  <li><div class="tool">Confirm swimmer status: <span id="status"></span></div>
+  <li><div>Move and scale the red box over the drowning swimmer.</div>
   <div id="playfield">
     <div id="player"></div>
     <div id="box" style=""></div>
