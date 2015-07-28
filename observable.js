@@ -1,3 +1,6 @@
+// observable by Dominic Tarr
+// https://www.npmjs.com/package/observable
+
 ;(function () {
 
 // bind a to b -- One Way Binding
