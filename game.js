@@ -90,7 +90,8 @@
           rel: 0,
           showinfo: 0,
           playsinline: 1,
-          modestbranding: 1
+          modestbranding: 1,
+          fs: 0
         },
         events: {
           'onReady': onPlayerReady,
