@@ -50,7 +50,13 @@
     whistleSecs: 56.5,
     swimmerSavedSecs: 62.8,
     findBoxStyle: "left: 606px; top: -265px; position: relative; width: 102px; height: 102px;",
-  }];
+  }, {
+    "videoId": "L0KTqPloUiU",
+    "drowningStartSecs": 31.506069,
+    "whistleSecs": 37.946069,
+    "swimmerSavedSecs": 45.126069,
+    "findBoxStyle": "left: 601px; top: -302px; position: relative; width: 203px; height: 136px;"
+    }];
 
   var gameState = pickRandom(videos);
   var player;
