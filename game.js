@@ -32,7 +32,7 @@
       this.statusBox.textContent = text;
     },
     showInfo: function showInfo() {
-      this.infoBox.setAttribute('style', 'display: block; -webkit-animation: example 4s; animation: example 4s; -webkit-animation-fill-mode: forwards; animation-fill-mode: forwards;');
+      this.infoBox.setAttribute('style', 'display: block; -webkit-animation: info-fade 4s; animation: info-fade 4s; -webkit-animation-fill-mode: forwards; animation-fill-mode: forwards;');
     },
     showTime: function showTime(time) {
       var timeStr = time.toPrecision(2);
@@ -46,7 +46,7 @@
     },
     showCursorDot: function showCursorDot(x, y, win) {
       var positionStyle = 'display: block; position: absolute; top:'+(y-5)+'px;left:'+(x-5)+'px;';
-      this.cursorDot.setAttribute('style', positionStyle);
+      this.cursorDot.setAttribute('style', positionStyle+'-webkit-animation: cursor-throb 1s infinite ease; animation: cursor-throb 1s infinite ease;');
       if (win) {
         this.cursorDot.className += ' win-hue';
         this.cursorDot.setAttribute('style', positionStyle+'-webkit-animation: fadeout 10s; animation: fadeout 10s; -webkit-animation-fill-mode: forwards; animation-fill-mode: forwards;');
