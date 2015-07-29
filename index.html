@@ -51,6 +51,15 @@
       font-size: 75%;
       float: right;
     }
+    @-webkit-keyframes fadeout {
+        from {opacity: 1;}
+        to {opacity: 0;}
+    }
+    @keyframes fadeout {
+        from {opacity: 1;}
+        to {opacity: 0;}
+    }
+
     @-webkit-keyframes example {
         from {background-color: black; color: black;}
         to {background-color: #EFFEFF; color: #0D3E42;}
@@ -68,6 +77,9 @@
       background: #CCC;
       border: 1px solid #333;
       display: none;
+    }
+    #cursor-dot.win-hue {
+      background-color: #57DC28;
     }
     .cursor-look {
       position: absolute;
