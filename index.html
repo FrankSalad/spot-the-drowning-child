@@ -20,6 +20,7 @@
       font-family: serif;
     }
     #box {
+      z-index: 100;
       display: none;
     }
     #success {
@@ -59,7 +60,20 @@
         from {background-color: black; color: black;}
         to {background-color: #EFFEFF; color: #0D3E42;}
     }
+
+    #cursor-dot {
+      border-radius: 50%;
+      width: 5px;
+      height: 5px;
+      background: #CCC;
+      border: 1px solid #333;
+      display: none;
+    }
+    .cursor-look {
+      position: absolute;
+    }
   </style>
+  <link href="video-cursor.css" rel="stylesheet" type="text/css">
   <link href="http://fonts.googleapis.com/css?family=Oxygen" rel="stylesheet" type="text/css">
   <script src="observable.js" type="text/javascript"></script>
   <script>
@@ -75,8 +89,13 @@
 </head>
 <body>
   <div id="playfield">
+    <div class="cursor-look" id="topsquare"></div>
+    <div class="cursor-look" id="bottomsquare"></div>
+    <div class="cursor-look" id="leftsquare"></div>
+    <div class="cursor-look" id="rightsquare"></div>
     <div id="player"></div>
     <div id="box" style=""></div>
+    <div id="cursor-dot"></div>
   </div>
   <div class="status">
     <span id="status">Spot the drowning child.</span>

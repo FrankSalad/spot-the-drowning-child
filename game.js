@@ -6,6 +6,28 @@
     infoBox: document.getElementById('info'),
     scoreBox: document.getElementById('scorebox'),
     creatorLink: document.getElementById('creator-link'),
+    cursorLooks: {
+      all: document.getElementsByClassName('cursor-look'),
+      addEventListener: function addEventListener(eventName, handler) {
+        for (i = 0; i < this.all.length; i++) {
+          var cursorLook = this.all[i];
+          cursorLook.addEventListener(eventName, handler);
+        }
+      },
+      hide: function hide() {
+        for (i = 0; i < this.all.length; i++) {
+          var cursorLook = this.all[i];
+          cursorLook.setAttribute('style', 'display: none;');
+        }
+      },
+      show: function show() {
+        for (i = 0; i < this.all.length; i++) {
+          var cursorLook = this.all[i];
+          cursorLook.setAttribute('style', 'display: block;');
+        }
+      }
+    },
+    cursorDot: document.getElementById('cursor-dot'),
     showStatus: function showStatus(text) {
       this.statusBox.textContent = text;
     },
@@ -21,6 +43,12 @@
       }
       timeStr += 's';
       this.scoreBox.textContent = timeStr;
+    },
+    showCursorDot: function showCursorDot(x, y) {
+      this.cursorDot.setAttribute('style', 'display: block; position: absolute; top:'+(y-5)+'px;left:'+(x-5)+'px;');
+    },
+    hideCursorDot: function hideCursorDot() {
+      this.cursorDot.setAttribute('style', 'display: none;');
     }
   };
   var successMsgs = ['Good job.', 'Nice work.', 'Good eye.', 'Well done.', 'Nicely done.'];
@@ -118,6 +146,24 @@
         dom.findBox.setAttribute('style', 'display: none;');
       }
     });
+
+
+
+    dom.cursorLooks.addEventListener('click', function(e) {
+      if (player.getPlayerState() === YT.PlayerState.PAUSED) {
+        player.playVideo();
+      } else if (player.getPlayerState() === YT.PlayerState.PLAYING) {
+        var status = gameState.status();
+        if (status === 'drowning' || status === 'ok') {
+          dom.showCursorDot(e.pageX, e.pageY);
+        }
+        player.pauseVideo();
+      }
+    });
+
+    dom.cursorDot.addEventListener('click', function() {
+      player.playVideo();
+    });
   }
 
   function setupItem(nextItem) {
@@ -163,20 +209,25 @@
 
   // 4. The API will call this function when the video player is ready.
 
+
   function onPlayerStateChange(event) {
     var status = gameState.status();
     if (event.data === YT.PlayerState.ENDED) {
       end();
     } else if (event.data === YT.PlayerState.PAUSED) {
+      dom.cursorLooks.hide();
       if (status === 'drowning' || status === 'ok') {
         var pauseMsg = pickRandom(pauseMsgs);
         dom.showStatus(pauseMsg + ' Keep looking.');
       } else if (status === 'spotted' || status === 'saved') {
         end();
       }
-    } else if (event.data === YT.PlayerState.PLAYING &&
-        (status === 'drowning' || status === 'ok')) {
-      dom.showStatus('Spot the drowning child.');
+    } else if (event.data === YT.PlayerState.PLAYING) {
+      dom.hideCursorDot();
+      dom.cursorLooks.show();
+      if (status === 'drowning' || status === 'ok') {
+        dom.showStatus('Spot the drowning child.');
+      }
     }
   }
 

@@ -1,0 +1,27 @@
+#topsquare {
+	height: 350px;
+	width: 854px;
+	top: 0;
+	left: 0;
+}
+
+#bottomsquare {
+	top: 388px;
+	height: 123px;
+	left: 0;
+	width: 854px;
+}
+
+#leftsquare {
+	width: 640px;
+	height: 480px;
+	top: 0;
+	left:0;
+}
+
+#rightsquare {
+	left: 800px;
+	top: 0px;
+	height: 480px;
+	width: 65px;
+}
