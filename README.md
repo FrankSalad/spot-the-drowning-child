@@ -1,7 +1,7 @@
 # spot-the-drowning-child
 Lifeguarding Game
 
-[spotthedrowningchild.com](http://spotthedrowningchild.com)
+[Spot The Drowning Child](http://spotthedrowningchild.com)
 
 Drowning people can be easy to miss. Once someone's instinctive response has taken over, they oftentimes look like they're swimming and go unnoticed by others closeby.
 
