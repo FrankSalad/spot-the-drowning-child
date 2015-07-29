@@ -47,14 +47,15 @@
   </pre>
   <p>into a <a href="https://github.com/FrankSalad/spot-the-drowning-child/issues/new">new issue</a>.</p>
   <ol>
-  <li><div class="tool">Set video url: https://www.youtube.com/watch?v=<input type="text" placeholder="Video ID" id="video-id"/></div>
+  <li>Find a lifeguard saving lives like nbd <a href="https://www.youtube.com/results?search_query=Lifeguard+rescue" target="_blank">on YouTube.</a>
+  <li><div class="tool">Copy and paste the video url: https://www.youtube.com/watch?v=<input type="text" placeholder="Video ID" id="video-id"/> <button onclick="loadVideo()">Load Video</button></div>
   <li><div class="tool">
-    Click at the appropriate times:
-    <button onclick="setDrowningSecs()">Set Drowning Time</button>
-    <button onclick="setWhistleSecs()">Set Whistle Time</button>
-    <button onclick="setSavedSecs()">Set Swimmer Saved Time</button>
+    Click at the appropriate times while video is playing:
+    <button onclick="setDrowningSecs()">Someone starts drowning</button>
+    <button onclick="setWhistleSecs()">Lifeguard whistle</button>
+    <button onclick="setSavedSecs()">Lifeguard reaches swimmer</button>
   </div>
-  <li><div class="tool">Confirm swimmer status: <span id="status"></span></div>
+  <li><div class="tool">Watch video again, confirm swimmer status: <span id="status"></span></div>
   <li><div>Move and scale the red box over the drowning swimmer.</div>
   <div id="playfield">
     <div id="player"></div>
@@ -97,10 +98,10 @@
     }];
 
     var currentItem = {
-      videoId: 'T5mDQeDkca0',
-      drowningStartSecs: Infinity,
-      whistleSecs: Infinity,
-      swimmerSavedSecs: Infinity,
+      videoId: null,
+      drowningStartSecs: null,
+      whistleSecs: null,
+      swimmerSavedSecs: null,
       findBoxStyle: null
     };
     var statusElement = document.getElementById('status');
@@ -135,13 +136,25 @@
     });
     videoInput.addEventListener('keyup', function(e) {
       if (e.keyCode === 13) {
-        if (player && player.stopVideo)
-          player.stopVideo();
-        currentItem.videoId = videoInput.value;
-        player.cueVideoById(videoInput.value);
-        player.playVideo();
+        loadVideo();
       }
     });
+
+    function loadVideo() {
+      // Fix the video ID just in case someone pastes in a full url
+      var videoId = videoInput.value;
+      if (videoId.indexOf('youtube.com') >= 0) {
+        videoId = videoId.substr(videoId.indexOf('v=') + 2);
+        videoId = videoId.indexOf('&') === -1 ? videoId : videoId.substr(0, videoId.indexOf('&'));
+        videoInput.value = videoId;
+      }
+
+      if (player && player.stopVideo)
+          player.stopVideo();
+      currentItem.videoId = videoId;
+      player.cueVideoById(videoId);
+      player.playVideo();
+    }
 
     function setDrowningSecs() {
       currentItem.drowningStartSecs = player.getCurrentTime();
@@ -201,7 +214,9 @@
 
     // 4. The API will call this function when the video player is ready.
     function onPlayerReady(event) {
-      event.target.playVideo();
+      if (currentItem.findBoxStyle) {
+        resizeableObj.attr('style', currentItem.findBoxStyle);
+      }
     }
 
     // 5. The API calls this function when the player's state changes.
