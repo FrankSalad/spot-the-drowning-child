@@ -98,7 +98,8 @@
           showinfo: 0,
           playsinline: 1,
           modestbranding: 1,
-          fs: 0
+          fs: 0,
+          html5: 1
         },
         events: {
           'onReady': onPlayerReady,
