@@ -145,6 +145,8 @@
     dom.findBox.setAttribute('style', nextItem.findBoxStyle);
     player.playVideo();
 
+    ga('set', 'dimension1', nextItem.videoId);
+
     gameState.status(function(newStatus) {
       if (newStatus === 'drowning') {
         dom.findBox.setAttribute('style', 'display: block;' + nextItem.findBoxStyle);
