@@ -89,9 +89,13 @@
     var outputElement = document.getElementById('output');
     var time;
 
+    var prevOutput;
     setInterval(function() {
       var output = JSON.stringify(currentItem, undefined, 2);
-      outputElement.innerHTML = output;
+      if (output !== prevOutput) {
+        outputElement.innerHTML = output;
+        prevOutput = output;
+      }
 
       if (!player || !player.getCurrentTime)
           return;
