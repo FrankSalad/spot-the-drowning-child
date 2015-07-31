@@ -119,7 +119,7 @@
         }
         player.pauseVideo();
       }
-      ga('send', 'event', 'game', 'click', 'video clicked');
+      ga('send', 'event', 'game', 'click', 'video clicked', {'dimension1': gameState.videoId});
     });
 
     dom.cursorDot.click(function() {
