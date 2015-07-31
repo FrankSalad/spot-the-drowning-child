@@ -45,6 +45,10 @@
   function init() {
     youtubeInit(onPlayerReady, onPlayerStateChange);
     wireDom(dom);
+
+    new Share('.share', {
+      url: 'http://spotthedrowningchild.com'
+    });
   }
   init();
 
