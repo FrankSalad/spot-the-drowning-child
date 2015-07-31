@@ -99,7 +99,8 @@
           playsinline: 1,
           modestbranding: 1,
           fs: 0,
-          html5: 1
+          html5: 1,
+          autoplay: 1
         },
         events: {
           'onReady': onPlayerReady,
