@@ -119,6 +119,7 @@
         }
         player.pauseVideo();
       }
+      ga('send', 'event', 'game', 'click', 'video clicked');
     });
 
     dom.cursorDot.click(function() {
@@ -150,6 +151,7 @@
 
   function success() {
     gameState.winTime = player.getCurrentTime();
+    ga('send', 'event', 'game', 'win', 'game time', gameState.winTime);
 
     if (gameState.status() === 'drowning') {
       player.seekTo(gameState.whistleSecs);
