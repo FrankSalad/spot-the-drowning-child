@@ -25,3 +25,8 @@
 	height: 480px;
 	width: 65px;
 }
+
+.cursor-look {
+ 	position: absolute;
+ 	cursor: pointer;
+}
