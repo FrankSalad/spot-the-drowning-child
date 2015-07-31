@@ -7,7 +7,7 @@
     scoreBox: document.getElementById('scorebox'),
     creatorLink: document.getElementById('creator-link'),
     cursorLooks: $('.cursor-look'),
-    cursorDot: document.getElementById('cursor-dot'),
+    cursorDot: $('#cursor-dot'),
     showStatus: function showStatus(text) {
       this.statusBox.textContent = text;
     },
@@ -26,14 +26,14 @@
     },
     showCursorDot: function showCursorDot(x, y, win) {
       var positionStyle = 'display: block; position: absolute; top:'+(y-5)+'px;left:'+(x-5)+'px;';
-      this.cursorDot.setAttribute('style', positionStyle+'-webkit-animation: cursor-throb 1s infinite ease; animation: cursor-throb 1s infinite ease;');
+      this.cursorDot.attr('style', positionStyle+'-webkit-animation: cursor-throb 1s infinite ease; animation: cursor-throb 1s infinite ease;');
       if (win) {
-        this.cursorDot.className += ' win-hue';
-        this.cursorDot.setAttribute('style', positionStyle+'-webkit-animation: fadeout 10s; animation: fadeout 10s; -webkit-animation-fill-mode: forwards; animation-fill-mode: forwards;');
+        this.cursorDot.addClass('win-hue');
+        this.cursorDot.attr('style', positionStyle+'-webkit-animation: fadeout 10s; animation: fadeout 10s; -webkit-animation-fill-mode: forwards; animation-fill-mode: forwards;');
       }
     },
     hideCursorDot: function hideCursorDot() {
-      this.cursorDot.setAttribute('style', 'display: none;');
+      this.cursorDot.attr('style', 'display: none;');
     }
   };
   var successMsgs = ['Good job.', 'Nice work.', 'Good eye.', 'Well done.', 'Nicely done.'];
