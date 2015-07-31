@@ -47,6 +47,8 @@
     wireDom(dom);
 
     new Share('.share', {
+      title: 'Spot The Drowning Child',
+      description: 'An interactive PSA about the instinctive drowning response.',
       url: 'http://spotthedrowningchild.com'
     });
   }
