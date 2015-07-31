@@ -1,32 +1,12 @@
 (function() {
   // 2. This code loads the IFrame Player API code asynchronously.
   var dom = {
-    findBox: document.getElementById('box'),
+    findBox: $('#box'),
     statusBox: document.getElementById('status'),
     infoBox: document.getElementById('info'),
     scoreBox: document.getElementById('scorebox'),
     creatorLink: document.getElementById('creator-link'),
-    cursorLooks: {
-      all: document.getElementsByClassName('cursor-look'),
-      addEventListener: function addEventListener(eventName, handler) {
-        for (i = 0; i < this.all.length; i++) {
-          var cursorLook = this.all[i];
-          cursorLook.addEventListener(eventName, handler);
-        }
-      },
-      hide: function hide() {
-        for (i = 0; i < this.all.length; i++) {
-          var cursorLook = this.all[i];
-          cursorLook.setAttribute('style', 'display: none;');
-        }
-      },
-      show: function show() {
-        for (i = 0; i < this.all.length; i++) {
-          var cursorLook = this.all[i];
-          cursorLook.setAttribute('style', 'display: block;');
-        }
-      }
-    },
+    cursorLooks: $('.cursor-look'),
     cursorDot: document.getElementById('cursor-dot'),
     showStatus: function showStatus(text) {
       this.statusBox.textContent = text;
@@ -115,15 +95,15 @@
   }
 
   function wireDom(dom) {
-    dom.findBox.addEventListener('click', function(e) {
+    dom.findBox.click(function(e) {
       if (gameState.status() === 'drowning' || gameState.status() === 'spotted') {
         dom.showCursorDot(e.pageX, e.pageY, true);
         success();
-        dom.findBox.setAttribute('style', 'display: none;');
+        dom.findBox.attr('style', 'display: none;');
       }
     });
 
-    dom.cursorLooks.addEventListener('click', function(e) {
+    dom.cursorLooks.click(function(e) {
       if (player.getPlayerState() === YT.PlayerState.PAUSED) {
         player.playVideo();
       } else if (player.getPlayerState() === YT.PlayerState.PLAYING) {
@@ -135,7 +115,7 @@
       }
     });
 
-    dom.cursorDot.addEventListener('click', function() {
+    dom.cursorDot.click(function() {
       player.playVideo();
     });
   }
@@ -144,14 +124,14 @@
     nextItem.status = observable();
     nextItem.status('ok');
     player.cueVideoById(nextItem.videoId, undefined, 'large');
-    dom.findBox.setAttribute('style', nextItem.findBoxStyle);
+    dom.findBox.attr('style', nextItem.findBoxStyle);
     player.playVideo();
 
     ga('set', 'dimension1', nextItem.videoId);
 
     gameState.status(function(newStatus) {
       if (newStatus === 'drowning') {
-        dom.findBox.setAttribute('style', 'display: block;' + nextItem.findBoxStyle);
+        dom.findBox.attr('style', 'display: block;' + nextItem.findBoxStyle);
       } else if (newStatus === 'saved') {
         end();
       } else if (newStatus === 'spotted') {
@@ -170,6 +150,7 @@
     }
     gameState.status('spotted');
     player.setPlaybackRate(2);
+    player.playVideo();
 
     var time = gameState.whistleSecs - gameState.winTime;
     var msg = pickRandom(successMsgs);

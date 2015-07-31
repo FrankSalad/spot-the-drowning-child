@@ -29,4 +29,5 @@
 .cursor-look {
  	position: absolute;
  	cursor: pointer;
+ 	display: none;
 }
