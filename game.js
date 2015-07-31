@@ -119,7 +119,7 @@
         }
         player.pauseVideo();
       }
-      ga('send', 'event', 'game', 'click', 'video clicked', {'dimension1': gameState.videoId});
+      ga('send', 'event', gameState.videoId, 'click', 'video clicked', {'dimension1': gameState.videoId});
     });
 
     dom.cursorDot.click(function() {
@@ -151,7 +151,7 @@
 
   function success() {
     gameState.winTime = player.getCurrentTime();
-    ga('send', 'event', 'game', 'win', 'game time', gameState.winTime);
+    ga('send', 'event', gameState.videoId, 'win', 'game time', gameState.winTime);
 
     if (gameState.status() === 'drowning') {
       player.seekTo(gameState.whistleSecs);
