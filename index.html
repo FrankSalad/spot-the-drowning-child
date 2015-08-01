@@ -15,14 +15,6 @@
       text-align: justify;
       background-color: black;
     }
-    #info {
-      display: none;
-      background-color: black;
-      border-radius: 4px;
-      padding: 1px 23px 30px 23px;
-      margin: 10px;
-      font-family: serif;
-    }
     #box {
       z-index: 100;
       display: none;
@@ -45,27 +37,20 @@
     #scorebox.win-hue {
       color: #4B8E34;
     }
-    .links {
-      font-size: 14pt;
-      margin: 39px;
-    }
-    #creator-link {
+
+    #cursor-dot {
+      border-radius: 50%;
+      width: 5px;
+      height: 5px;
+      background: #CCC;
+      border: 1px solid #333;
       display: none;
     }
-    .attribution {
-      font-family: "Oxygen";
-      font-size: 75%;
-      float: right;
-      clear: right;
-      margin: 0px;
-      text-align: right;
+    #cursor-dot.win-hue {
+      background-color: #57DC28;
     }
-    .attribution p {
-      margin: 2px 0px;
-    }
-    ol li {
-      margin: 10px 0px;
-    }
+
+
     @-webkit-keyframes fadeout {
         from {opacity: 1;}
         to {opacity: 0;}
@@ -96,17 +81,16 @@
         50% {opacity: .3;}
         100% {opacity: 1;}
     }
-
-    #cursor-dot {
-      border-radius: 50%;
-      width: 5px;
-      height: 5px;
-      background: #CCC;
-      border: 1px solid #333;
+    #info {
       display: none;
+      background-color: black;
+      border-radius: 4px;
+      padding: 1px 35px 30px 40px;
+      margin: 10px 30px;
+      font-family: serif;
     }
-    #cursor-dot.win-hue {
-      background-color: #57DC28;
+    ol li {
+      margin: 10px 0px;
     }
     .share {
       display: inline-block !important;
@@ -116,6 +100,27 @@
     .nav {
       font-family: "Oxygen";
       margin-top: 30px;
+    }
+    .nav a:first-child {
+      margin-left: 0px;
+    }
+    .links {
+      font-size: 14pt;
+      margin: 39px;
+    }
+    #creator-link {
+      display: none;
+    }
+    .attribution {
+      font-family: "Oxygen";
+      font-size: 75%;
+      float: right;
+      clear: right;
+      text-align: right;
+      text-align: right;
+    }
+    .attribution p {
+      margin: 2px 0px;
     }
   </style>
   <script type="text/javascript"
