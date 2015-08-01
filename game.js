@@ -133,6 +133,7 @@
   function setupItem(nextItem) {
     nextItem.status = observable();
     nextItem.status('ok');
+    nextItem.pauseCount = 0;
     player.cueVideoById(nextItem.videoId, undefined, 'large');
     dom.findBox.attr('style', nextItem.findBoxStyle);
     player.playVideo();
@@ -183,9 +184,10 @@
     if (event.data === YT.PlayerState.ENDED) {
       end();
     } else if (event.data === YT.PlayerState.PAUSED) {
+      gameState.pauseCount += 1;
       dom.cursorLooks.hide();
       if (status === 'drowning' || status === 'ok') {
-        if (!dom.isMobile()) {
+        if (!dom.isMobile() || gameState.pauseCount > 1) {
           var pauseMsg = pickRandom(pauseMsgs);
           dom.showStatus(pauseMsg + ' Keep looking.');
         }
