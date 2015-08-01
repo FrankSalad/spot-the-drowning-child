@@ -59,8 +59,9 @@
 
   function onPlayerReady(event) {
     setupItem(gameState);
-
-    setInterval(function gameFrame() {
+    if (gameState.frameRefresh)
+      clearInterval(gameState.frameRefresh);
+    gameState.frameRefresh = setInterval(function gameFrame() {
       if (!player || !player.getCurrentTime || player.getPlayerState() !== YT.PlayerState.PLAYING)
           return;
       var time = player.getCurrentTime();
@@ -118,7 +119,9 @@
       } else if (player.getPlayerState() === YT.PlayerState.PLAYING) {
         var status = gameState.status();
         if (status === 'drowning' || status === 'ok' || status === 'spotted') {
-          dom.showCursorDot(e.pageX, e.pageY);
+          if (!gameState.winTime) {
+            dom.showCursorDot(e.pageX, e.pageY);
+          }
         }
         player.pauseVideo();
       }
@@ -156,7 +159,7 @@
 
   function success() {
     gameState.winTime = player.getCurrentTime();
-    ga('send', 'event', 'game', 'win', gameState.videoId);
+    ga('send', 'event', 'game', 'success', gameState.videoId);
     ga('send', 'event', gameState.videoId, 'win', 'game time', gameState.winTime);
 
     var status = gameState.status();
@@ -186,6 +189,8 @@
   function end() {
     ga('send', 'event', 'game', 'end', gameState.videoId);
     dom.showInfo();
+    if (gameState.frameRefresh)
+      clearInterval(gameState.frameRefresh);
   }
 
 
