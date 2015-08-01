@@ -34,6 +34,9 @@
     },
     hideCursorDot: function hideCursorDot() {
       this.cursorDot.attr('style', 'display: none;');
+    },
+    isMobile: function isMobile() {
+      return navigator.userAgent.match(/(iPod|iPhone|iPad)/);
     }
   };
   var successMsgs = ['Good job.', 'Nice work.', 'Good eye.', 'Well done.', 'Nicely done.'];
@@ -188,7 +191,8 @@
         end();
       }
     } else if (event.data === YT.PlayerState.PLAYING) {
-      dom.cursorLooks.show();
+      if (!dom.isMobile())
+        dom.cursorLooks.show();
       if (status === 'drowning' || status === 'ok') {
         dom.hideCursorDot();
         dom.showStatus('Spot the drowning child.');
