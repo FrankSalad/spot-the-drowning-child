@@ -42,4 +42,11 @@ videos = [{
 	  "whistleSecs": 36.457647,
 	  "swimmerSavedSecs": 48.531527,
 	  "findBoxStyle": "left: 665px; top: -437px; position: relative; width: 134px; height: 73px;"
-  }];
+  },
+  {
+		"videoId": "STY8N-33-tQ",
+		"drowningStartSecs": 9.434103,
+		"whistleSecs": 12.452573,
+		"swimmerSavedSecs": 16.980278,
+		"findBoxStyle": "left: 452px; top: -282px; position: relative; width: 110px; height: 68px;"
+	}];
