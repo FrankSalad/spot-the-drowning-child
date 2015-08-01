@@ -8,7 +8,7 @@
   <meta property="og:type" content="website" />
   <meta property="og:url" content="http://spotthedrowningchild.com/" />
   <meta property="og:image" content="http://spotthedrowningchild.com/Aimanness_Photography_drowning.jpg" />
-  <meta property="og:description" content="Spot The Drowning Child: An interactive public service announcement. To the untrained eye, drowning can look just like swimming. The Instinctive Drowning Response is frequently missed, even by people closeby." />
+  <meta property="og:description" content="Spot The Drowning Child: An interactive public service announcement. To the untrained eye, drowning can look just like swimming. The Instinctive Drowning Response is frequently missed, even by people close by." />
   <meta name="viewport" content="width=854px">
   <style>
     body {
@@ -79,6 +79,16 @@
         to {background-color: #EFFEFF; color: #0D3E42;}
     }
 
+    @-webkit-keyframes wininfo-fade {
+        from {background-color: black; color: black;}
+        to {background-color: white; color: #0D3E42;}
+    }
+
+    @keyframes wininfo-fade {
+        from {background-color: black; color: black;}
+        to {background-color: white; color: #0D3E42;}
+    }
+
     @-webkit-keyframes cursor-throb {
         0% {opacity: 1;}
         50% {opacity: .3;}
@@ -90,13 +100,17 @@
         50% {opacity: .3;}
         100% {opacity: 1;}
     }
-    #info {
+    .info {
       display: none;
       background-color: black;
       border-radius: 4px;
       padding: 1px 35px 30px 40px;
       margin: 10px 30px;
       font-family: serif;
+    }
+    .info#wininfo {
+      overflow: hidden;
+      color: black;
     }
     ol li {
       margin: 10px 0px;
@@ -134,7 +148,14 @@
     .attribution p {
       margin: 2px 0px;
     }
-
+    .buoy {
+      display: none;
+      float: right;
+    }
+    .source {
+      font-size: 75%;
+      padding: 10px;
+    }
   </style>
   <script type="text/javascript"
       src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
@@ -168,7 +189,48 @@
     <span id="status">Spot the drowning child.</span>
     <span id="scorebox"></span>
   </div>
-  <div id="info">
+  <div id="wininfo" class="info">
+    <h1>Great, you spotted the child. Be careful, think first.</h1>
+    <p>When a swimmer is drowning and someone approaches them,
+    the drowning person will attempt to cling on and climb anything nearby. Unfortunately this means that
+    untrained rescuers can easily be overwhelmed and drowned themselves. <span class="source">Source: <a href="http://www.ncbi.nlm.nih.gov/pubmed/21827292">PubMed</a></span>
+    <p>For this reason, it is inadvisable for untrained rescuers to approach drowning people directly.</p>
+    <div class="buoy">
+      <a href="http://www.amazon.com/gp/product/B00FGJ86MO/ref=as_li_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=B00FGJ86MO&linkCode=as2&tag=spothedrochi-20&linkId=GXSJRDOURPQ7JMJ6"><img border="0" src="http://ws-na.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=B00FGJ86MO&Format=_SL250_&ID=AsinImage&MarketPlace=US&ServiceVersion=20070822&WS=1&tag=spothedrochi-20" ></a><img src="http://ir-na.amazon-adsystem.com/e/ir?t=spothedrochi-20&l=as2&o=1&a=B00FGJ86MO" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
+    </div>
+    <div class="buoy">
+      <a href="http://www.amazon.com/gp/product/B0014495UM/ref=as_li_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=B0014495UM&linkCode=as2&tag=spothedrochi-20&linkId=DNTO55Q5SBG7323H"><img border="0" src="http://ws-na.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=B0014495UM&Format=_SL250_&ID=AsinImage&MarketPlace=US&ServiceVersion=20070822&WS=1&tag=spothedrochi-20" ></a><img src="http://ir-na.amazon-adsystem.com/e/ir?t=spothedrochi-20&l=as2&o=1&a=B0014495UM" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
+    </div>
+    <div class="buoy">
+      <a href="http://www.amazon.com/gp/product/B000MTXZGK/ref=as_li_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=B000MTXZGK&linkCode=as2&tag=spothedrochi-20&linkId=KYOM4NST5MU5U4LE"><img border="0" src="http://ws-na.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=B000MTXZGK&Format=_SL250_&ID=AsinImage&MarketPlace=US&ServiceVersion=20070822&WS=1&tag=spothedrochi-20" ></a><img src="http://ir-na.amazon-adsystem.com/e/ir?t=spothedrochi-20&l=as2&o=1&a=B000MTXZGK" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
+    </div>
+    <div class="buoy">
+      <a href="http://www.amazon.com/gp/product/B000URPEX6/ref=as_li_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=B000URPEX6&linkCode=as2&tag=spothedrochi-20&linkId=WMIQJI2AR3SQIL7W"><img border="0" src="http://ws-na.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=B000URPEX6&Format=_SL250_&ID=AsinImage&MarketPlace=US&ServiceVersion=20070822&WS=1&tag=spothedrochi-20" ></a><img src="http://ir-na.amazon-adsystem.com/e/ir?t=spothedrochi-20&l=as2&o=1&a=B000URPEX6" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
+    </div>
+    <div class="buoy">
+      <a href="http://www.amazon.com/gp/product/B003P8J1KE/ref=as_li_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=B003P8J1KE&linkCode=as2&tag=spothedrochi-20&linkId=T3FFY3OMVG2TW6MA"><img border="0" src="http://ws-na.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=B003P8J1KE&Format=_SL250_&ID=AsinImage&MarketPlace=US&ServiceVersion=20070822&WS=1&tag=spothedrochi-20" ></a><img src="http://ir-na.amazon-adsystem.com/e/ir?t=spothedrochi-20&l=as2&o=1&a=B003P8J1KE" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
+    </div>
+    <div class="buoy">
+      <a href="http://www.amazon.com/gp/product/B008MOM4KK/ref=as_li_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=B008MOM4KK&linkCode=as2&tag=spothedrochi-20&linkId=VKLUB5LHHZSUJNFB"><img border="0" src="http://ws-na.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=B008MOM4KK&Format=_SL250_&ID=AsinImage&MarketPlace=US&ServiceVersion=20070822&WS=1&tag=spothedrochi-20" ></a><img src="http://ir-na.amazon-adsystem.com/e/ir?t=spothedrochi-20&l=as2&o=1&a=B008MOM4KK" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
+    </div>
+    <div class="buoy">
+      <a href="http://www.amazon.com/gp/product/B001PGWZDS/ref=as_li_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=B001PGWZDS&linkCode=as2&tag=spothedrochi-20&linkId=LLNUWEXLMEXOPVST"><img border="0" src="http://ws-na.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=B001PGWZDS&Format=_SL250_&ID=AsinImage&MarketPlace=US&ServiceVersion=20070822&WS=1&tag=spothedrochi-20" ></a><img src="http://ir-na.amazon-adsystem.com/e/ir?t=spothedrochi-20&l=as2&o=1&a=B001PGWZDS" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
+    </div>
+    <h2>So what can you do?</h2>
+    <ol>
+    <li>Alert a lifeguard, if one is nearby.</li>
+    <li>If you can reach the person securely from the side of the pool, try to hoist them out without sliding in yourself.</li>
+    <li>Grab a floating object like a lifepreserver or buoy with a rope, throw it PAST the drowning person, and pull it in using the rope.</li>
+    <li>As a last resort, approach the drowning person from the back.</li>
+    </ol>
+    <div class="nav">
+      <div class="share"></div>
+      <a class="links" href="#" onClick="window.location.reload()">Play&nbsp;Another&nbsp;Video</a>
+      <a class="links" href="https://github.com/FrankSalad/spot-the-drowning-child">About&nbsp;the&nbsp;Game</a>
+      <a class="links" id="creator-link" href="creator.html">Level&nbsp;Creator</a>
+    </div>
+  </div>
+  <div id="info" class="info">
     <h1>Drowning Doesn't Look Like Drowning</h1>
     <p>The Instinctive Drowning Response -- so named by Francesco A. Pia, Ph.D., is what people do to avoid actual or perceived suffocation in the water. And it does not look like what most people expect. There is very little splashing, no waving, and no yelling or calls for help of any kind. To get an idea of just how quiet and undramatic from the surface drowning can be, consider this: It is the number two cause of accidental death in children, age 15 and under (just behind vehicle accidents) -- of the approximately 750 children who will drown next year, about 375 of them will do so within 25 yards of a parent or other adult. In ten percent of those drownings, the adult will actually watch them do it, having no idea it is happening.
     <p>Drowning does not look like drowning -- Dr. Pia, in an article in the Coast Guard's On Scene Magazine, described the instinctive drowning response like this:
@@ -191,7 +253,6 @@
       <div class="share"></div>
       <a class="links" href="#" onClick="window.location.reload()">Play&nbsp;Another&nbsp;Video</a>
       <a class="links" href="https://github.com/FrankSalad/spot-the-drowning-child">About&nbsp;the&nbsp;Game</a>
-      <a class="links" id="creator-link" href="creator.html">Level&nbsp;Creator</a>
     </div>
   </div>
 <script src="game.js" type="text/javascript"></script>

@@ -4,6 +4,8 @@
     findBox: $('#box'),
     statusBox: document.getElementById('status'),
     infoBox: document.getElementById('info'),
+    winInfoBox: document.getElementById('wininfo'),
+    buoyImages: $('.buoy'),
     scoreBox: document.getElementById('scorebox'),
     creatorLink: document.getElementById('creator-link'),
     cursorLooks: $('.cursor-look'),
@@ -13,6 +15,11 @@
     },
     showInfo: function showInfo() {
       this.infoBox.setAttribute('style', 'display: block; -webkit-animation: info-fade 4s; animation: info-fade 4s; -webkit-animation-fill-mode: forwards; animation-fill-mode: forwards;');
+    },
+    showWinInfo: function showWinInfo() {
+      this.winInfoBox.setAttribute('style', 'display: block; -webkit-animation: wininfo-fade 4s; animation: wininfo-fade 4s; -webkit-animation-fill-mode: forwards; animation-fill-mode: forwards;');
+      var buoy = pickRandom(this.buoyImages);
+      $(buoy).attr('style', 'display: inline;');
     },
     showTime: function showTime(time) {
       var timeStr = time.toPrecision(2);
@@ -147,12 +154,16 @@
     gameState.status(function(newStatus) {
       if (newStatus === 'drowning') {
         dom.findBox.attr('style', 'display: block;' + nextItem.findBoxStyle);
+        setTimeout(function() {
+          if (!gameState.winTime) {
+            dom.showStatus('Spot the drowning child. Click the video to help the lifeguard.');
+          }
+        }, 10*1000);
       } else if (newStatus === 'saved') {
-        end();
+        if (gameState.frameRefresh)
+          clearInterval(gameState.frameRefresh);
       } else if (newStatus === 'spotted') {
-        if (!gameState.winTime) {
-          dom.showStatus('Spot the drowning child. Click the video to help the lifeguard.');
-        }
+        end();
       }
     });
   }
@@ -184,13 +195,13 @@
     var msg = pickRandom(successMsgs);
     dom.showStatus(msg);
     dom.showTime(time);
+
+    dom.showWinInfo();
   }
 
   function end() {
     ga('send', 'event', 'game', 'end', gameState.videoId);
     dom.showInfo();
-    if (gameState.frameRefresh)
-      clearInterval(gameState.frameRefresh);
   }
 
 
