@@ -1,65 +1,44 @@
 (function() {
   // 2. This code loads the IFrame Player API code asynchronously.
-  var dom = {
-    findBox: $('#box'),
-    statusBox: document.getElementById('status'),
-    infoBox: document.getElementById('info'),
-    winInfoBox: document.getElementById('wininfo'),
-    buoyImages: $('.buoy'),
-    scoreBox: document.getElementById('scorebox'),
-    creatorLink: document.getElementById('creator-link'),
-    cursorLooks: $('.cursor-look'),
-    cursorDot: $('#cursor-dot'),
-    showStatus: function showStatus(text) {
-      this.statusBox.textContent = text;
-    },
-    showInfo: function showInfo() {
-      this.infoBox.setAttribute('style', 'display: block; -webkit-animation: info-fade 4s; animation: info-fade 4s; -webkit-animation-fill-mode: forwards; animation-fill-mode: forwards;');
-    },
-    showWinInfo: function showWinInfo() {
-      this.winInfoBox.setAttribute('style', 'display: block; -webkit-animation: wininfo-fade 4s; animation: wininfo-fade 4s; -webkit-animation-fill-mode: forwards; animation-fill-mode: forwards;');
-      var buoy = pickRandom(this.buoyImages);
-      $(buoy).attr('style', 'display: inline;');
-    },
-    showTime: function showTime(time) {
-      var timeStr = time.toPrecision(2);
-      if (time > 0) {
-        timeStr = '+'+timeStr;
-        this.scoreBox.className += ' win-hue';
-        this.creatorLink.setAttribute('style', 'display: inline-block');
+  function loadScript(src, callback)
+  {
+    var s,
+        r,
+        t;
+    r = false;
+    s = document.createElement('script');
+    s.type = 'text/javascript';
+    s.src = src;
+    s.onload = s.onreadystatechange = function() {
+      //console.log( this.readyState ); //uncomment this line to see which ready states are called.
+      if ( !r && (!this.readyState || this.readyState == 'complete') )
+      {
+        r = true;
+        callback();
       }
-      timeStr += 's';
-      this.scoreBox.textContent = timeStr;
-    },
-    showCursorDot: function showCursorDot(x, y, win) {
-      var positionStyle = 'display: block; position: absolute; top:'+(y-5)+'px;left:'+(x-5)+'px;';
-      this.cursorDot.attr('style', positionStyle+'-webkit-animation: cursor-throb 1s infinite ease; animation: cursor-throb 1s infinite ease;');
-      if (win) {
-        this.cursorDot.addClass('win-hue');
-        this.cursorDot.attr('style', positionStyle+'-webkit-animation: fadeout 10s; animation: fadeout 10s; -webkit-animation-fill-mode: forwards; animation-fill-mode: forwards;');
-      }
-    },
-    hideCursorDot: function hideCursorDot() {
-      this.cursorDot.attr('style', 'display: none;');
-    },
-    isMobile: function isMobile() {
-      return navigator.userAgent.match(/(iPod|iPhone|iPad)/);
-    }
-  };
+    };
+    t = document.getElementsByTagName('script')[0];
+    t.parentNode.insertBefore(s, t);
+  }
+  var dom;
   var successMsgs = ['Good job.', 'Nice work.', 'Good eye.', 'Well done.', 'Nicely done.'];
   var pauseMsgs = ['Looks fine there.', 'Seems ok.', 'All clear there.', 'Just splashing around.'];
 
-  var gameState = pickRandom(videos);
-  var player;
-
   function init() {
-    youtubeInit(onPlayerReady, onPlayerStateChange);
-    wireDom(dom);
+    loadScript('http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js', function() {
+      loadScript('observable.js', function() {
+        wireDom();
+        youtubeInit(onPlayerReady, onPlayerStateChange);
+      });
+    });
 
-    new Share('.share', {
-      title: 'Spot The Drowning Child',
-      description: 'An interactive PSA about the instinctive drowning response.',
-      url: 'http://spotthedrowningchild.com'
+
+    loadScript('share.min.js', function() {
+      new Share('.share', {
+        title: 'Spot The Drowning Child',
+        description: 'An interactive PSA about the instinctive drowning response.',
+        url: 'http://spotthedrowningchild.com'
+      });
     });
   }
   init();
@@ -84,34 +63,60 @@
   }
 
   function youtubeInit(onPlayerReady, onPlayerStateChange) {
-    window.onYouTubeIframeAPIReady = function() {
-      player = new YT.Player('player', {
-        height: '480',
-        width: '854',
-        videoId: gameState.videoId,
-        playerVars: {
-          controls: 0,
-          rel: 0,
-          showinfo: 0,
-          playsinline: 1,
-          modestbranding: 1,
-          fs: 0,
-          html5: 1,
-          autoplay: 1
-        },
-        events: {
-          'onReady': onPlayerReady,
-          'onStateChange': onPlayerStateChange
-        }
-      });
-    };
-    var tag = document.createElement('script');
-    tag.src = "https://www.youtube.com/iframe_api";
-    var firstScriptTag = document.getElementsByTagName('script')[0];
-    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+    if (window.playerReady) {
+      onPlayerReady();
+    } else {
+      window.player.addEventListener('onReady', onPlayerReady);
+    }
+    window.player.addEventListener('onStateChange', onPlayerStateChange);
   }
 
-  function wireDom(dom) {
+  function wireDom() {
+    dom = {
+      findBox: $('#box'),
+      statusBox: document.getElementById('status'),
+      infoBox: document.getElementById('info'),
+      winInfoBox: document.getElementById('wininfo'),
+      scoreBox: document.getElementById('scorebox'),
+      creatorLink: document.getElementById('creator-link'),
+      cursorLooks: $('.cursor-look'),
+      cursorDot: $('#cursor-dot'),
+      showStatus: function showStatus(text) {
+        this.statusBox.textContent = text;
+      },
+      showInfo: function showInfo() {
+        this.infoBox.setAttribute('style', 'display: block; -webkit-animation: info-fade 4s; animation: info-fade 4s; -webkit-animation-fill-mode: forwards; animation-fill-mode: forwards;');
+      },
+      showWinInfo: function showWinInfo() {
+        this.winInfoBox.setAttribute('style', 'display: block; -webkit-animation: wininfo-fade 4s; animation: wininfo-fade 4s; -webkit-animation-fill-mode: forwards; animation-fill-mode: forwards;');
+        loadScript('buoy.js', function() {});
+      },
+      showTime: function showTime(time) {
+        var timeStr = time.toPrecision(2);
+        if (time > 0) {
+          timeStr = '+'+timeStr;
+          this.scoreBox.className += ' win-hue';
+          this.creatorLink.setAttribute('style', 'display: inline-block');
+        }
+        timeStr += 's';
+        this.scoreBox.textContent = timeStr;
+      },
+      showCursorDot: function showCursorDot(x, y, win) {
+        var positionStyle = 'display: block; position: absolute; top:'+(y-5)+'px;left:'+(x-5)+'px;';
+        this.cursorDot.attr('style', positionStyle+'-webkit-animation: cursor-throb 1s infinite ease; animation: cursor-throb 1s infinite ease;');
+        if (win) {
+          this.cursorDot.addClass('win-hue');
+          this.cursorDot.attr('style', positionStyle+'-webkit-animation: fadeout 10s; animation: fadeout 10s; -webkit-animation-fill-mode: forwards; animation-fill-mode: forwards;');
+        }
+      },
+      hideCursorDot: function hideCursorDot() {
+        this.cursorDot.attr('style', 'display: none;');
+      },
+      isMobile: function isMobile() {
+        return navigator.userAgent.match(/(iPod|iPhone|iPad)/);
+      }
+    };
+
     dom.findBox.click(function(e) {
       if (gameState.status() === 'drowning' || gameState.status() === 'spotted') {
         dom.showCursorDot(e.pageX, e.pageY, true);
@@ -203,8 +208,6 @@
     ga('send', 'event', 'game', 'end', gameState.videoId);
     dom.showInfo();
   }
-
-
 
   // 4. The API will call this function when the video player is ready.
 

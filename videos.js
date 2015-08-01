@@ -1,4 +1,5 @@
-videos = [{
+(function() {
+	var videos = [{
 		videoId: '4sFuULOY5ik',
 		drowningStartSecs: 12.2,
 		whistleSecs: 14.5,
@@ -50,3 +51,40 @@ videos = [{
 		"swimmerSavedSecs": 16.980278,
 		"findBoxStyle": "left: 452px; top: -282px; position: relative; width: 110px; height: 68px;"
 	}];
+
+function pickRandom(items) {
+  return items[Math.floor(Math.random()*items.length)];
+}
+
+function youtubeInit() {
+	window.gameState = pickRandom(videos);
+  window.onYouTubeIframeAPIReady = function() {
+    window.player = new YT.Player('player', {
+      height: '480',
+      width: '854',
+      videoId: gameState.videoId,
+      playerVars: {
+        controls: 0,
+        rel: 0,
+        showinfo: 0,
+        playsinline: 1,
+        modestbranding: 1,
+        fs: 0,
+        html5: 1,
+        autoplay: 1
+      },
+      events: {
+      	'onReady': function youtubeReady() {
+      		window.playerReady = true;
+      	}
+      }
+    });
+  };
+  var tag = document.createElement('script');
+  tag.src = "https://www.youtube.com/iframe_api";
+  var firstScriptTag = document.getElementsByTagName('script')[0];
+  firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+}
+youtubeInit();
+
+})();
