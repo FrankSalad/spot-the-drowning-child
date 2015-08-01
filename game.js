@@ -23,6 +23,8 @@
   var dom;
   var successMsgs = ['Good job.', 'Nice work.', 'Good eye.', 'Well done.', 'Nicely done.'];
   var pauseMsgs = ['Looks fine there.', 'Seems ok.', 'All clear there.', 'Just splashing around.'];
+  var player;
+  var gameState;
 
   function init() {
     loadScript('http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js', function() {
@@ -63,12 +65,14 @@
   }
 
   function youtubeInit(onPlayerReady, onPlayerStateChange) {
-    if (window.playerReady) {
-      onPlayerReady();
-    } else {
-      window.player.addEventListener('onReady', onPlayerReady);
-    }
-    window.player.addEventListener('onStateChange', onPlayerStateChange);
+    window.getYoutubePlayer().then(
+      function(player_gameState) {
+        player = player_gameState[0];
+        gameState = player_gameState[1];
+        player.addEventListener('onStateChange', onPlayerStateChange);
+        onPlayerReady();
+      }
+    );
   }
 
   function wireDom() {
