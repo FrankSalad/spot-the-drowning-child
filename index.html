@@ -21,7 +21,6 @@
       border-radius: 4px;
       padding: 1px 23px 30px 23px;
       margin: 10px;
-
       font-family: serif;
     }
     #box {
@@ -54,10 +53,18 @@
       display: none;
     }
     .attribution {
+      font-family: "Oxygen";
       font-size: 75%;
       float: right;
       clear: right;
-      margin: 2px 0;
+      margin: 0px;
+      text-align: right;
+    }
+    .attribution p {
+      margin: 2px 0px;
+    }
+    ol li {
+      margin: 10px 0px;
     }
     @-webkit-keyframes fadeout {
         from {opacity: 1;}
@@ -90,7 +97,6 @@
         100% {opacity: 1;}
     }
 
-
     #cursor-dot {
       border-radius: 50%;
       width: 5px;
@@ -105,7 +111,11 @@
     .share {
       display: inline-block !important;
       vertical-align: top;
-      margin-left: 10px;
+      margin-left: 39px;
+    }
+    .nav {
+      font-family: "Oxygen";
+      margin-top: 30px;
     }
   </style>
   <script type="text/javascript"
@@ -154,12 +164,17 @@
     <li>From beginning to end of the Instinctive Drowning Response people's bodies remain upright in the water, with no evidence of a supporting kick. Unless rescued by a trained lifeguard, these drowning people can only struggle on the surface of the water from 20 to 60 seconds before submersion occurs.
     </ol>
     </quote>
-    <p class="attribution">Article by  <a href="http://mariovittone.com/2010/05/154/">Mario Vittone</a></p>
-    <p class="attribution">Design by <a href="http://franciscosaldana.com">Francisco Salda&ntilde;a</a></p>
-    <a class="links" href="#" onClick="window.location.reload()">Play Another Video</a>
-    <a class="links" href="https://github.com/FrankSalad/spot-the-drowning-child">About the Game</a>
-    <a class="links" id="creator-link" href="creator.html">Level Creator</a>
-    <div class="share"></div>
+    <div class="attribution">
+      <p>Article by <a href="http://mariovittone.com/2010/05/154/">Mario Vittone</a></p>
+      <p>Videos by <a href="https://ourparks.org/what-we-do/the-genesis-project/">The Genesis Project</a></p>
+      <p>Design by <a href="http://franciscosaldana.com">Francisco Salda&ntilde;a</a></p>
+    </div>
+    <div class="nav">
+      <a class="links" href="#" onClick="window.location.reload()">Play Another Video</a>
+      <a class="links" href="https://github.com/FrankSalad/spot-the-drowning-child">About the Game</a>
+      <a class="links" id="creator-link" href="creator.html">Level Creator</a>
+      <div class="share"></div>
+    </div>
   </div>
 <script src="game.js" type="text/javascript"></script>
 </body>
