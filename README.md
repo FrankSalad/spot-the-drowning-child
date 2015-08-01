@@ -9,10 +9,10 @@ Inspired by [this hackernews thread](https://news.ycombinator.com/item?id=994723
 
 Confirmed working on desktop browsers, mobile experience is a work in progress. If you've found a bug, do let me know [in an issue](https://github.com/FrankSalad/spot-the-drowning-child/issues/new). Android users especially (I don't have an android to test on, unfortunately.)
 
-Help out by adding to the video library. I [created a tool](http://spotthedrowningchild.com/creator.html) to make this easier. Follow the instructions on the page and I'll do my best to include it in the live game. 
-
-If you really liked this:
+#### How can I help?
 
 <a href='http://ko-fi.com?i=1004WX6TN7MJ1' target='_blank'><img width="160" style='border:0px' src='https://az743702.vo.msecnd.net/cdn/btn1.png' border='0' alt='Buy Me A Coffee at Ko-Fi.com' /></a> 
 
 [Donate to the Genesis Project](http://the-parklands-foundation.myshopify.com/collections/frontpage/products/the-genesis-project)
+
+You can also help out by adding to the video library. I [created a tool](http://spotthedrowningchild.com/creator.html) to make this easier. Follow the instructions on the page and I'll do my best to include it in the live game. 
