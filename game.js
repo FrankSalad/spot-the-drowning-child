@@ -19,7 +19,7 @@
       if (time > 0) {
         timeStr = '+'+timeStr;
         this.scoreBox.className += ' win-hue';
-        this.creatorLink.setAttribute('style', 'display: inline');
+        this.creatorLink.setAttribute('style', 'display: inline-block');
       }
       timeStr += 's';
       this.scoreBox.textContent = timeStr;
