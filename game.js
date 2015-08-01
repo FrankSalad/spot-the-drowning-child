@@ -139,6 +139,7 @@
     player.playVideo();
 
     ga('set', 'dimension1', nextItem.videoId);
+    ga('send', 'event', 'game', 'setup', nextItem.videoId);
 
     gameState.status(function(newStatus) {
       if (newStatus === 'drowning') {
@@ -155,6 +156,7 @@
 
   function success() {
     gameState.winTime = player.getCurrentTime();
+    ga('send', 'event', 'game', 'win', gameState.videoId);
     ga('send', 'event', gameState.videoId, 'win', 'game time', gameState.winTime);
 
     var status = gameState.status();
@@ -182,6 +184,7 @@
   }
 
   function end() {
+    ga('send', 'event', 'game', 'end', gameState.videoId);
     dom.showInfo();
   }
 
@@ -196,6 +199,7 @@
       end();
     } else if (event.data === YT.PlayerState.PAUSED) {
       gameState.pauseCount += 1;
+      ga('send', 'event', 'game', 'paused', gameState.videoId, gameState.pauseCount);
       dom.cursorLooks.hide();
       if (status === 'drowning' || status === 'ok') {
         if (!dom.isMobile() || gameState.pauseCount > 1) {
@@ -206,6 +210,7 @@
         end();
       }
     } else if (event.data === YT.PlayerState.PLAYING) {
+      ga('send', 'event', 'game', 'played', gameState.videoId);
       if (!dom.isMobile())
         dom.cursorLooks.show();
       if (status === 'drowning' || status === 'ok') {
