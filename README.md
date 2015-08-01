@@ -14,3 +14,5 @@ Help out by adding to the video library. I [created a tool](http://spotthedrowni
 If you really liked this:
 
 <a href='http://ko-fi.com?i=1004WX6TN7MJ1' target='_blank'><img width="160" style='border:0px' src='https://az743702.vo.msecnd.net/cdn/btn1.png' border='0' alt='Buy Me A Coffee at Ko-Fi.com' /></a> 
+-and-
+[Donate to the Genesis Project](http://the-parklands-foundation.myshopify.com/collections/frontpage/products/the-genesis-project)
