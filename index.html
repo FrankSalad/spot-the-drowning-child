@@ -9,6 +9,7 @@
   <meta property="og:url" content="http://spotthedrowningchild.com/" />
   <meta property="og:image" content="http://spotthedrowningchild.com/Aimanness_Photography_drowning.jpg" />
   <meta property="og:description" content="Spot The Drowning Child: An interactive public service announcement. To the untrained eye, drowning can look just like swimming. The Instinctive Drowning Response is frequently missed, even by people closeby." />
+  <meta name="viewport" content="width=854px">
   <style>
     body {
       font-family: "Oxygen";
@@ -25,6 +26,14 @@
     }
     .status {
       color: #CCC;
+    }
+    @media (max-height: 480px) {
+      .status {
+        position: fixed;
+        bottom: 0;
+        background-color: black;
+        padding: 5px 10px;
+      }
     }
     #playfield {
       height: 500px;

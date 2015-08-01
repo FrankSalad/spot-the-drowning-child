@@ -185,8 +185,10 @@
     } else if (event.data === YT.PlayerState.PAUSED) {
       dom.cursorLooks.hide();
       if (status === 'drowning' || status === 'ok') {
-        var pauseMsg = pickRandom(pauseMsgs);
-        dom.showStatus(pauseMsg + ' Keep looking.');
+        if (!dom.isMobile()) {
+          var pauseMsg = pickRandom(pauseMsgs);
+          dom.showStatus(pauseMsg + ' Keep looking.');
+        }
       } else if (status === 'spotted' || status === 'saved') {
         end();
       }
