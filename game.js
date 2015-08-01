@@ -157,12 +157,23 @@
     gameState.winTime = player.getCurrentTime();
     ga('send', 'event', gameState.videoId, 'win', 'game time', gameState.winTime);
 
-    if (gameState.status() === 'drowning') {
-      player.seekTo(gameState.whistleSecs);
-    }
+    var status = gameState.status();
     gameState.status('spotted');
-    player.setPlaybackRate(2);
-    player.playVideo();
+    if (!dom.isMobile()) {
+      if (status === 'drowning') {
+        player.seekTo(gameState.whistleSecs);
+      }
+      player.setPlaybackRate(2);
+      player.playVideo();
+    } else {
+      setTimeout(function() {
+        if (status === 'drowning') {
+          player.seekTo(gameState.whistleSecs);
+        }
+        player.playVideo();
+      }, 1000);
+    }
+
 
     var time = gameState.whistleSecs - gameState.winTime;
     var msg = pickRandom(successMsgs);
