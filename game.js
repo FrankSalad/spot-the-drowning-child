@@ -127,8 +127,12 @@
         var gameState = player_gameState[1];
         var nextGame = gameState.next();
 
-        dom.playAgain.attr('href', '#'+nextGame.index);
-        location.hash = ''; // If we refresh, don't choose the same video
+        dom.playAgain.attr('href', window.location.pathname + '?' + $.param({'g':nextGame.index}));
+        if (history.pushState) {
+            // If we refresh, don't choose the same video
+            var newurl = window.location.protocol + "//" + window.location.host + window.location.pathname;
+            window.history.pushState({path:newurl},'',newurl);
+        }
       });
 
     dom.findBox.click(function(e) {

@@ -56,7 +56,18 @@ function pickRandom(items) {
   return items[Math.floor(Math.random()*items.length)];
 }
 
+function getParameterByName(name) {
+    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+        results = regex.exec(location.search);
+    return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+}
+
 function getAnchorGame() {
+  var qVal = parseInt(getParameterByName('g'));
+  if (!isNaN(qVal) && qVal < videos.length) {
+    return videos[qVal];
+  }
   var hashVal = window.location.hash.substr(1);
   hashVal = parseInt(hashVal);
   if (!isNaN(hashVal) && hashVal < videos.length) {
