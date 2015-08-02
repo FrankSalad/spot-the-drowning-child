@@ -1,5 +1,4 @@
 (function() {
-  // 2. This code loads the IFrame Player API code asynchronously.
   function loadScript(src, callback)
   {
     var s,
@@ -65,7 +64,7 @@
   }
 
   function youtubeInit(onPlayerReady, onPlayerStateChange) {
-    window.getYoutubePlayer().then(
+    window.Videos.getYoutubePlayer().then(
       function(player_gameState) {
         player = player_gameState[0];
         gameState = player_gameState[1];
@@ -85,6 +84,7 @@
       creatorLink: document.getElementById('creator-link'),
       cursorLooks: $('.cursor-look'),
       cursorDot: $('#cursor-dot'),
+      playAgain: $('.play-again'),
       showStatus: function showStatus(text) {
         this.statusBox.textContent = text;
       },
@@ -120,6 +120,16 @@
         return navigator.userAgent.match(/(iPod|iPhone|iPad)/);
       }
     };
+
+    // Set up the play-again links:
+    window.Videos.getYoutubePlayer().then(
+      function(player_gameState) {
+        var gameState = player_gameState[1];
+        var nextGame = gameState.next();
+
+        dom.playAgain.attr('href', '#'+nextGame.index);
+        location.hash = ''; // If we refresh, don't choose the same video
+      });
 
     dom.findBox.click(function(e) {
       if (gameState.status() === 'drowning' || gameState.status() === 'spotted') {

@@ -1,5 +1,5 @@
 (function() {
-    window.videos = [{
+  window.videos = [{
         videoId: '4sFuULOY5ik',
         drowningStartSecs: 12.2,
         whistleSecs: 14.5,
@@ -50,18 +50,38 @@
         "whistleSecs": 12.452573,
         "swimmerSavedSecs": 16.980278,
         "findBoxStyle": "left: 452px; top: -282px; position: relative; width: 110px; height: 68px;"
-    }];
+  }];
 
 function pickRandom(items) {
   return items[Math.floor(Math.random()*items.length)];
 }
 
+function getAnchorGame() {
+  var hashVal = window.location.hash.substr(1);
+  hashVal = parseInt(hashVal);
+  if (!isNaN(hashVal) && hashVal < videos.length) {
+    return videos[hashVal];
+  }
+}
+
+function annotateVideos() {
+  for (var i=0; i < videos.length; ++i) {
+    (function(i) {
+      videos[i].next = function next() {
+        return videos[(i+1) % videos.length];
+      };
+      videos[i].index = i;
+    })(i);
+  }
+}
+
 function getYoutubePlayer() {
-  if (window._playerPromise) {
-    return window._playerPromise;
+  if (window.Videos._playerPromise) {
+    return window.Videos._playerPromise;
   }
   var player;
-  var gameState = pickRandom(videos);
+  var gameState = getAnchorGame() || pickRandom(videos);
+
   var promise = new Promise(function (resolve, reject) {
       window.onYouTubeIframeAPIReady = function() {
       player = new window.YT.Player('player', {
@@ -96,7 +116,11 @@ function getYoutubePlayer() {
   firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
   return promise;
 }
-window._playerPromise = getYoutubePlayer();
-window.getYoutubePlayer = getYoutubePlayer;
+annotateVideos();
+window.Videos = {
+  _playerPromise: undefined,
+  getYoutubePlayer: getYoutubePlayer
+};
+window.Videos._playerPromise = getYoutubePlayer();
 
 })();
