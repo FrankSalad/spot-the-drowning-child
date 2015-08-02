@@ -45,7 +45,7 @@
   init();
 
   function onPlayerReady(event) {
-    setupItem(gameState);
+    setupGame(gameState);
     if (gameState.frameRefresh)
       clearInterval(gameState.frameRefresh);
     gameState.frameRefresh = setInterval(function gameFrame() {
@@ -163,23 +163,27 @@
     });
   }
 
-  function setupItem(nextItem) {
-    nextItem.status = observable();
-    nextItem.status('ok');
-    nextItem.pauseCount = 0;
-    player.cueVideoById(nextItem.videoId, undefined, 'large');
-    dom.findBox.attr('style', nextItem.findBoxStyle);
+  function setupGame(gameState) {
+    gameState.status = observable();
+    gameState.status('ok');
+    gameState.pauseCount = 0;
+    gameState.ongoingPlayStatus = 'Spot the drowning child.';
+    player.cueVideoById(gameState.videoId, undefined, 'large');
+    dom.findBox.attr('style', gameState.findBoxStyle);
     player.playVideo();
 
-    ga('set', 'dimension1', nextItem.videoId);
-    ga('send', 'event', 'game', 'setup', nextItem.videoId);
+    ga('set', 'dimension1', gameState.videoId);
+    ga('send', 'event', 'game', 'setup', gameState.videoId);
 
     gameState.status(function(newStatus) {
       if (newStatus === 'drowning') {
-        dom.findBox.attr('style', 'display: block;' + nextItem.findBoxStyle);
-        if (!gameState.winTime) {
-          dom.showStatus('Spot the drowning child. Click the video to help the lifeguard.');
-        }
+        dom.findBox.attr('style', 'display: block;' + gameState.findBoxStyle);
+        setTimeout(function() {
+          if (!gameState.winTime) {
+            gameState.ongoingPlayStatus = 'Spot the drowning child. Click the video to help the lifeguard.';
+            dom.showStatus(gameState.ongoingPlayStatus);
+          }
+        }, (gameState.whistleSecs - gameState.drowningStartSecs) * Math.random() * 1000);
       } else if (newStatus === 'saved') {
         if (gameState.frameRefresh) {
           clearInterval(gameState.frameRefresh);
@@ -190,6 +194,10 @@
           });
         });
       } else if (newStatus === 'spotted') {
+        if (!gameState.winTime) {
+          gameState.ongoingPlayStatus = 'Spot the drowning child. Click the video to help the lifeguard.';
+          dom.showStatus(gameState.ongoingPlayStatus);
+        }
         end();
       }
     });
@@ -256,9 +264,8 @@
         dom.cursorLooks.show();
       if (status === 'drowning' || status === 'ok') {
         dom.hideCursorDot();
-        dom.showStatus('Spot the drowning child.');
-        if (status === 'drowning' && player.getCurrentTime() - gameState.drowningStartSecs > 2) {
-          dom.showStatus('Spot the drowning child. Click the video to help the lifeguard.');
+        if (!gameState.winTime) {
+          dom.showStatus(gameState.ongoingPlayStatus);
         }
       }
     }
