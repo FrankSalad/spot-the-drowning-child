@@ -27,7 +27,7 @@
   var gameState;
 
   function init() {
-    loadScript('http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js', function() {
+    loadScript('https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js', function() {
       loadScript('observable.js', function() {
         wireDom();
         youtubeInit(onPlayerReady, onPlayerStateChange);
@@ -163,14 +163,18 @@
     gameState.status(function(newStatus) {
       if (newStatus === 'drowning') {
         dom.findBox.attr('style', 'display: block;' + nextItem.findBoxStyle);
-        setTimeout(function() {
-          if (!gameState.winTime) {
-            dom.showStatus('Spot the drowning child. Click the video to help the lifeguard.');
-          }
-        }, 10*1000);
+        if (!gameState.winTime) {
+          dom.showStatus('Spot the drowning child. Click the video to help the lifeguard.');
+        }
       } else if (newStatus === 'saved') {
-        if (gameState.frameRefresh)
+        if (gameState.frameRefresh) {
           clearInterval(gameState.frameRefresh);
+        }
+        loadScript('jquery-scrollto.js', function() {
+          $('#bottomsquare').ScrollTo({
+            duration: 1000
+          });
+        });
       } else if (newStatus === 'spotted') {
         end();
       }
