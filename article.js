@@ -31,8 +31,10 @@ function getDom(parentDom) {
         showInfo: function showInfo() {
           this.setupShareButton();
           this.infoBox.setAttribute('style', 'display: block; -webkit-animation: info-fade 4s; animation: info-fade 4s; -webkit-animation-fill-mode: forwards; animation-fill-mode: forwards;');
+          this.playAgain.show();
         },
         showWinInfo: function showWinInfo(creatorLink) {
+          this.playAgain.show();
           this.setupShareButton();
           parentDom.statusBox.addClass('win');
           this.winInfoBox.setAttribute('style', 'display: block; -webkit-animation: wininfo-fade 4s; animation: wininfo-fade 4s; -webkit-animation-fill-mode: forwards; animation-fill-mode: forwards;');

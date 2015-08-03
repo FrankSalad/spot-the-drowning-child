@@ -73,22 +73,22 @@ function loadScript(src, callback)
     dom = {
       findBox: $('#box'),
       statusBox: $('.status'),
-      statusText: document.getElementById('status'),
-      scoreBox: document.getElementById('scorebox'),
+      statusText: $('#status'),
+      scoreBox: $('#scorebox'),
       cursorLooks: $('.cursor-look'),
       cursorDot: $('#cursor-dot'),
       showStatus: function showStatus(text) {
-        this.statusText.textContent = text;
+        this.statusText.text(text);
       },
       showTime: function showTime(time) {
         var timeStr = time.toPrecision(2);
         if (time > 0) {
           timeStr = '+'+timeStr;
         } else {
-          this.scoreBox.className += ' win-hue';
+          this.scoreBox.addClass('win-hue');
         }
         timeStr += 's';
-        this.scoreBox.textContent = timeStr;
+        this.scoreBox.text(timeStr);
       },
       showCursorDot: function showCursorDot(x, y, win) {
         var positionStyle = 'display: block; position: absolute; top:'+(y-5)+'px;left:'+(x-5)+'px;';
@@ -164,6 +164,11 @@ function loadScript(src, callback)
             duration: 1000
           });
         });
+        if (!gameState.winTime) {
+          // Just show the play again link, player can't click anymore.
+          dom.statusText.hide();
+          dom.scoreBox.hide();
+        }
       } else if (newStatus === 'spotted') {
         if (!gameState.winTime) {
           gameState.ongoingPlayStatus = 'Spot the drowning child. Click the video to help the lifeguard.';
