@@ -160,9 +160,11 @@ function loadScript(src, callback)
           clearInterval(gameState.frameRefresh);
         }
         loadScript('jquery-scrollto.js', function() {
-          $('#bottomsquare').ScrollTo({
-            duration: 1000
-          });
+          setTimeout(function() {
+            $('#bottomsquare').ScrollTo({
+              duration: 1000
+            });
+          }, 4*1000);
         });
         if (!gameState.winTime) {
           // Just show the play again link, player can't click anymore.
