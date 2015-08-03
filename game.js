@@ -1,24 +1,25 @@
-(function() {
-  function loadScript(src, callback)
-  {
-    var s,
-        r,
-        t;
-    r = false;
-    s = document.createElement('script');
-    s.type = 'text/javascript';
-    s.src = src;
-    s.onload = s.onreadystatechange = function() {
-      //console.log( this.readyState ); //uncomment this line to see which ready states are called.
-      if ( !r && (!this.readyState || this.readyState == 'complete') )
-      {
-        r = true;
-        callback();
-      }
-    };
-    t = document.getElementsByTagName('script')[0];
-    t.parentNode.insertBefore(s, t);
-  }
+function loadScript(src, callback)
+{
+  var s,
+      r,
+      t;
+  r = false;
+  s = document.createElement('script');
+  s.type = 'text/javascript';
+  s.src = src;
+  s.onload = s.onreadystatechange = function() {
+    //console.log( this.readyState ); //uncomment this line to see which ready states are called.
+    if ( !r && (!this.readyState || this.readyState == 'complete') )
+    {
+      r = true;
+      callback();
+    }
+  };
+  t = document.getElementsByTagName('script')[0];
+  t.parentNode.insertBefore(s, t);
+}
+
+(function(Videos) {
   var dom;
   var successMsgs = ['Good job.', 'Nice work.', 'Good eye.', 'Well done.', 'Nicely done.'];
   var pauseMsgs = ['Looks fine there.', 'Seems ok.', 'All clear there.', 'Just splashing around.'];
@@ -55,7 +56,7 @@
   }
 
   function youtubeInit(onPlayerReady, onPlayerStateChange) {
-    window.Videos.getYoutubePlayer().then(
+    Videos.getYoutubePlayer().then(
       function(player_gameState) {
         player = player_gameState[0];
         gameState = player_gameState[1];
@@ -70,37 +71,11 @@
       findBox: $('#box'),
       statusBox: $('.status'),
       statusText: document.getElementById('status'),
-      infoBox: document.getElementById('info'),
-      winInfoBox: document.getElementById('wininfo'),
       scoreBox: document.getElementById('scorebox'),
-      creatorLink: document.getElementById('creator-link'),
       cursorLooks: $('.cursor-look'),
       cursorDot: $('#cursor-dot'),
-      playAgain: $('.play-again'),
       showStatus: function showStatus(text) {
         this.statusText.textContent = text;
-      },
-      setupShareButton: function setupShareButton() {
-        if (this._shareSetup === true)
-          return;
-        this._shareSetup = true;
-        loadScript('share.min.js', function() {
-            new Share('.share', {
-            title: 'Spot The Drowning Child',
-            description: 'An interactive PSA about the instinctive drowning response.',
-            url: 'http://spotthedrowningchild.com'
-          });
-        });
-      },
-      showInfo: function showInfo() {
-        this.setupShareButton();
-        this.infoBox.setAttribute('style', 'display: block; -webkit-animation: info-fade 4s; animation: info-fade 4s; -webkit-animation-fill-mode: forwards; animation-fill-mode: forwards;');
-      },
-      showWinInfo: function showWinInfo() {
-        this.setupShareButton();
-        this.statusBox.addClass('win');
-        this.winInfoBox.setAttribute('style', 'display: block; -webkit-animation: wininfo-fade 4s; animation: wininfo-fade 4s; -webkit-animation-fill-mode: forwards; animation-fill-mode: forwards;');
-        loadScript('buoy.js', function() {});
       },
       showTime: function showTime(time) {
         var timeStr = time.toPrecision(2);
@@ -108,7 +83,6 @@
           timeStr = '+'+timeStr;
         } else {
           this.scoreBox.className += ' win-hue';
-          this.creatorLink.setAttribute('style', 'display: inline-block');
         }
         timeStr += 's';
         this.scoreBox.textContent = timeStr;
@@ -128,20 +102,6 @@
         return navigator.userAgent.match(/(iPod|iPhone|iPad)/);
       }
     };
-
-    // Set up the play-again links:
-    window.Videos.getYoutubePlayer().then(
-      function(player_gameState) {
-        var gameState = player_gameState[1];
-        var nextGame = gameState.next();
-
-        dom.playAgain.attr('href', window.location.pathname + '?' + $.param({'g':nextGame.index}));
-        if (history.pushState) {
-            // If we refresh, don't choose the same video
-            var newurl = window.location.protocol + "//" + window.location.host + window.location.pathname;
-            window.history.pushState({path:newurl},'',newurl);
-        }
-      });
 
     dom.findBox.click(function(e) {
       if (gameState.status() === 'drowning' || gameState.status() === 'spotted') {
@@ -238,13 +198,20 @@
     var msg = pickRandom(successMsgs);
     dom.showStatus(msg);
     dom.showTime(time);
-
-    dom.showWinInfo();
+    loadScript('article.js', function() {
+      Article.getDom(dom).then(function(dom) {
+        dom.showWinInfo(time < 0);
+      });
+    });
   }
 
   function end() {
     ga('send', 'event', 'game', 'end', gameState.videoId);
-    dom.showInfo();
+    loadScript('article.js', function() {
+      Article.getDom(dom).then(function(dom) {
+        dom.showInfo();
+      });
+    });
   }
 
   // 4. The API will call this function when the video player is ready.
@@ -282,4 +249,4 @@
   function pickRandom(items) {
     return items[Math.floor(Math.random()*items.length)];
   }
-})();
+})(window.Videos);
