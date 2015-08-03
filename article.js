@@ -1,4 +1,6 @@
+/*global window: false */
 (function(Videos) {
+"use strict";
 if (window.Article)
   return;
 window.Article = {};

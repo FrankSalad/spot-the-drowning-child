@@ -1,4 +1,5 @@
 (function() {
+"use strict";
 
 var buoys = [
   '<a href="http://www.amazon.com/gp/product/B00FGJ86MO/ref=as_li_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=B00FGJ86MO&linkCode=as2&tag=spothedrochi-20&linkId=GXSJRDOURPQ7JMJ6"><img border="0" src="http://ws-na.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=B00FGJ86MO&Format=_SL250_&ID=AsinImage&MarketPlace=US&ServiceVersion=20070822&WS=1&tag=spothedrochi-20" ></a><img src="http://ir-na.amazon-adsystem.com/e/ir?t=spothedrochi-20&l=as2&o=1&a=B00FGJ86MO" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />',

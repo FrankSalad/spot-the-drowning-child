@@ -1,4 +1,7 @@
+/*global window: false */
+/*jslint browser: true */
 (function() {
+"use strict";
   window.videos = [{
         videoId: '4sFuULOY5ik',
         drowningStartSecs: 12.2,

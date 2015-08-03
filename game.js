@@ -1,3 +1,5 @@
+/*global window: false */
+/*jslint browser: true */
 function loadScript(src, callback)
 {
   var s,
@@ -20,6 +22,7 @@ function loadScript(src, callback)
 }
 
 (function(Videos) {
+"use strict";
   var dom;
   var successMsgs = ['Good job.', 'Nice work.', 'Good eye.', 'Well done.', 'Nicely done.'];
   var pauseMsgs = ['Looks fine there.', 'Seems ok.', 'All clear there.', 'Just splashing around.'];
