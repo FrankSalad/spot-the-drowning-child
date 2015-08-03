@@ -64,13 +64,13 @@
 }
 
 @-webkit-keyframes playagain-fade {
-    from {color: black;}
-    to {color: #B8DBDE;}
+    from {opacity: 0;}
+    to {opacity: 1;}
 }
 
 @keyframes playagain-fade {
-    from {color: black;}
-    to {color: #B8DBDE;}
+    from {opacity: 0;}
+    to {opacity: 1;}
 }
 
 @-webkit-keyframes cursor-throb {
