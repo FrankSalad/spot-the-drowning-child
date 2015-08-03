@@ -101,6 +101,7 @@
         var timeStr = time.toPrecision(2);
         if (time > 0) {
           timeStr = '+'+timeStr;
+        } else {
           this.scoreBox.className += ' win-hue';
           this.creatorLink.setAttribute('style', 'display: inline-block');
         }
@@ -228,7 +229,7 @@
     }
 
 
-    var time = gameState.whistleSecs - gameState.winTime;
+    var time = gameState.winTime - gameState.whistleSecs;
     var msg = pickRandom(successMsgs);
     dom.showStatus(msg);
     dom.showTime(time);
