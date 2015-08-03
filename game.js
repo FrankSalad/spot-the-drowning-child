@@ -212,6 +212,9 @@ function loadScript(src, callback)
     var msg = pickRandom(successMsgs);
     dom.showStatus(msg);
     dom.showTime(time);
+    if (time <= 0) {
+      ga('send', 'event', 'game', 'predicted', gameState.videoId);
+    }
     loadScript('article.js', function() {
       Article.getDom(dom).then(function(dom) {
         dom.showWinInfo(time < 0);
