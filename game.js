@@ -27,18 +27,9 @@
 
   function init() {
     loadScript('https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js', function() {
-      loadScript('observable.js', function() {
+      loadScript('observable.min.js', function() {
         wireDom();
         youtubeInit(onPlayerReady, onPlayerStateChange);
-      });
-    });
-
-
-    loadScript('share.min.js', function() {
-      new Share('.share', {
-        title: 'Spot The Drowning Child',
-        description: 'An interactive PSA about the instinctive drowning response.',
-        url: 'http://spotthedrowningchild.com'
       });
     });
   }
@@ -89,10 +80,24 @@
       showStatus: function showStatus(text) {
         this.statusText.textContent = text;
       },
+      setupShareButton: function setupShareButton() {
+        if (this._shareSetup === true)
+          return;
+        this._shareSetup = true;
+        loadScript('share.min.js', function() {
+            new Share('.share', {
+            title: 'Spot The Drowning Child',
+            description: 'An interactive PSA about the instinctive drowning response.',
+            url: 'http://spotthedrowningchild.com'
+          });
+        });
+      },
       showInfo: function showInfo() {
+        this.setupShareButton();
         this.infoBox.setAttribute('style', 'display: block; -webkit-animation: info-fade 4s; animation: info-fade 4s; -webkit-animation-fill-mode: forwards; animation-fill-mode: forwards;');
       },
       showWinInfo: function showWinInfo() {
+        this.setupShareButton();
         this.statusBox.addClass('win');
         this.winInfoBox.setAttribute('style', 'display: block; -webkit-animation: wininfo-fade 4s; animation: wininfo-fade 4s; -webkit-animation-fill-mode: forwards; animation-fill-mode: forwards;');
         loadScript('buoy.js', function() {});
