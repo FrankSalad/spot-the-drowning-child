@@ -63,6 +63,16 @@
     to {background-color: white; color: #0D3E42;}
 }
 
+@-webkit-keyframes playagain-fade {
+    from {color: black;}
+    to {color: #B8DBDE;}
+}
+
+@keyframes playagain-fade {
+    from {color: black;}
+    to {color: #B8DBDE;}
+}
+
 @-webkit-keyframes cursor-throb {
     0% {opacity: 1;}
     50% {opacity: .3;}

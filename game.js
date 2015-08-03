@@ -74,6 +74,7 @@ function loadScript(src, callback)
       findBox: $('#box'),
       statusBox: $('.status'),
       statusText: $('#status'),
+      playAgain: $('.play-again'),
       scoreBox: $('#scorebox'),
       cursorLooks: $('.cursor-look'),
       cursorDot: $('#cursor-dot'),
@@ -89,6 +90,9 @@ function loadScript(src, callback)
         }
         timeStr += 's';
         this.scoreBox.text(timeStr);
+      },
+      showPlayAgain: function showPlayAgain() {
+        this.playAgain.attr('style', 'display: inline; -webkit-animation: playagain-fade 4s; animation: playagain-fade 4s; -webkit-animation-fill-mode: forwards; animation-fill-mode: forwards;');
       },
       showCursorDot: function showCursorDot(x, y, win) {
         var positionStyle = 'display: block; position: absolute; top:'+(y-5)+'px;left:'+(x-5)+'px;';
@@ -216,9 +220,11 @@ function loadScript(src, callback)
   }
 
   function end() {
+    var showPlayAgain = function() { dom.showPlayAgain(); };
     ga('send', 'event', 'game', 'end', gameState.videoId);
     loadScript('article.js', function() {
       Article.getDom(dom).then(function(dom) {
+        showPlayAgain();
         dom.showInfo();
       });
     });
