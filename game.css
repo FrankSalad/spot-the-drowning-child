@@ -15,9 +15,11 @@
   margin-left: 6px;
 }
 #scorebox.win-hue {
-  color: #4B8E34;
+  color: #3BB900;
 }
-
+.win #status {
+  color: white;
+}
 #cursor-dot {
   border-radius: 50%;
   width: 5px;

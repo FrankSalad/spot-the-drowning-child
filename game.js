@@ -77,7 +77,8 @@
   function wireDom() {
     dom = {
       findBox: $('#box'),
-      statusBox: document.getElementById('status'),
+      statusBox: $('.status'),
+      statusText: document.getElementById('status'),
       infoBox: document.getElementById('info'),
       winInfoBox: document.getElementById('wininfo'),
       scoreBox: document.getElementById('scorebox'),
@@ -86,12 +87,13 @@
       cursorDot: $('#cursor-dot'),
       playAgain: $('.play-again'),
       showStatus: function showStatus(text) {
-        this.statusBox.textContent = text;
+        this.statusText.textContent = text;
       },
       showInfo: function showInfo() {
         this.infoBox.setAttribute('style', 'display: block; -webkit-animation: info-fade 4s; animation: info-fade 4s; -webkit-animation-fill-mode: forwards; animation-fill-mode: forwards;');
       },
       showWinInfo: function showWinInfo() {
+        this.statusBox.addClass('win');
         this.winInfoBox.setAttribute('style', 'display: block; -webkit-animation: wininfo-fade 4s; animation: wininfo-fade 4s; -webkit-animation-fill-mode: forwards; animation-fill-mode: forwards;');
         loadScript('buoy.js', function() {});
       },
