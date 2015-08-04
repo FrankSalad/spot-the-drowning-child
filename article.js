@@ -16,6 +16,7 @@ function getDom(parentDom) {
         winInfoBox: document.getElementById('wininfo'),
         creatorLink: document.getElementById('creator-link'),
         playAgain: $('.play-again'),
+        tryAgain: $('.try-again'),
         setupShareButton: function setupShareButton() {
           if (this._shareSetup === true)
             return;
