@@ -87,7 +87,7 @@
   border-radius: 4px;
   padding: 1px 35px 30px 40px;
   margin: 10px 30px;
-  font-family: serif;
+  font-family: "Lora", serif;
 }
 .info#wininfo {
   overflow: visible;
@@ -139,5 +139,4 @@ ol li {
 }
 .source {
   font-size: 75%;
-  padding: 10px;
 }
