@@ -160,7 +160,7 @@ function loadScript(src, callback)
         dom.findBox.attr('style', 'display: block;' + gameState.findBoxStyle);
         setTimeout(function() {
           if (!gameState.winTime) {
-            gameState.ongoingPlayStatus = 'Spot the drowning child. Click the video to help the lifeguard.';
+            gameState.ongoingPlayStatus = 'Spot the drowning child.';
             dom.showStatus(gameState.ongoingPlayStatus);
           }
         }, (gameState.whistleSecs - gameState.drowningStartSecs) * Math.random() * 1000);
@@ -177,12 +177,11 @@ function loadScript(src, callback)
         });
         if (!gameState.winTime) {
           // Just show the play again link, player can't click anymore.
-          dom.statusText.hide();
-          dom.scoreBox.hide();
+          dom.showStatus('Try again.');
         }
       } else if (newStatus === 'spotted') {
         if (!gameState.winTime) {
-          gameState.ongoingPlayStatus = 'Spot the drowning child. Click the video to help the lifeguard.';
+          gameState.ongoingPlayStatus = 'Spot the drowning child.';
           dom.showStatus(gameState.ongoingPlayStatus);
         }
         end();
