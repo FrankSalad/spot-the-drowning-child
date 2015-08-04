@@ -40,11 +40,12 @@
     to {opacity: 0;}
 }
 
+@-webkit-keyframes fadein {
     from {opacity: 0;}
     to {opacity: 1;}
 }
 
-@keyframes playagain-fade {
+@keyframes fadein {
     from {opacity: 0;}
     to {opacity: 1;}
 }

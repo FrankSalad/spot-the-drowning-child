@@ -76,6 +76,7 @@ function loadScript(src, callback)
       statusText: $('#status'),
       playAgain: $('.play-again'),
       tryAgain: $('.try-again'),
+      statusLink: $('.statuslink'),
       scoreBox: $('#scorebox'),
       cursorLooks: $('.cursor-look'),
       cursorDot: $('#cursor-dot'),
@@ -93,11 +94,13 @@ function loadScript(src, callback)
         this.scoreBox.text(timeStr);
       },
       showPlayAgain: function showPlayAgain() {
-        this.playAgain.attr('style', 'display: inline; -webkit-animation: playagain-fade 4s; animation: playagain-fade 4s; -webkit-animation-fill-mode: forwards; animation-fill-mode: forwards;');
+        this.playAgain.show();
+        this.statusLink.attr('style', '-webkit-animation: fadein 4s; animation: fadein 4s; -webkit-animation-fill-mode: forwards; animation-fill-mode: forwards;');
       },
       showTryAgain: function showTryAgain() {
         this.tryAgain.attr('href', window.location.pathname + '?g=' + gameState.index);
-        this.tryAgain.attr('style', 'display: inline; -webkit-animation: playagain-fade 4s; animation: playagain-fade 4s; -webkit-animation-fill-mode: forwards; animation-fill-mode: forwards;');
+        this.tryAgain.show();
+        this.statusLink.attr('style', '-webkit-animation: fadein 4s; animation: fadein 4s; -webkit-animation-fill-mode: forwards; animation-fill-mode: forwards;');
       },
       showCursorDot: function showCursorDot(x, y, win) {
         var positionStyle = 'display: block; position: absolute; top:'+(y-5)+'px;left:'+(x-5)+'px;';
