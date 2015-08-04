@@ -31,12 +31,18 @@ function getDom(parentDom) {
         },
         showInfo: function showInfo() {
           this.setupShareButton();
-          this.infoBox.setAttribute('style', 'display: block; -webkit-animation: info-fade 4s; animation: info-fade 4s; -webkit-animation-fill-mode: forwards; animation-fill-mode: forwards;');
+          var dom = this;
+          setTimeout(function() {
+            dom.infoBox.setAttribute('style', 'display: block;');
+          }, 3500);
         },
         showWinInfo: function showWinInfo(creatorLink) {
           this.setupShareButton();
           parentDom.statusBox.addClass('win');
-          this.winInfoBox.setAttribute('style', 'display: block; -webkit-animation: wininfo-fade 4s; animation: wininfo-fade 4s; -webkit-animation-fill-mode: forwards; animation-fill-mode: forwards;');
+          var dom = this;
+          setTimeout(function() {
+            dom.winInfoBox.setAttribute('style', 'display: block;');
+          }, 3500);
           loadScript('buoy.js', function() {});
 
           if (creatorLink) {

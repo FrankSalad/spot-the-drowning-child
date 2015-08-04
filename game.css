@@ -40,27 +40,6 @@
     to {opacity: 0;}
 }
 
-@-webkit-keyframes info-fade {
-    from {background-color: black; color: black;}
-    to {background-color: #EFFEFF; color: #0D3E42;}
-}
-
-@keyframes info-fade {
-    from {background-color: black; color: black;}
-    to {background-color: #EFFEFF; color: #0D3E42;}
-}
-
-@-webkit-keyframes wininfo-fade {
-    from {background-color: black; color: black;}
-    to {background-color: white; color: #0D3E42;}
-}
-
-@keyframes wininfo-fade {
-    from {background-color: black; color: black;}
-    to {background-color: white; color: #0D3E42;}
-}
-
-@-webkit-keyframes playagain-fade {
     from {opacity: 0;}
     to {opacity: 1;}
 }
@@ -83,7 +62,8 @@
 }
 .info {
   display: none;
-  background-color: black;
+  color: #0D3E42;
+  background-color: #EFFEFF;
   border-radius: 4px;
   padding: 1px 35px 30px 40px;
   margin: 10px 30px;
@@ -92,6 +72,7 @@
 .info#wininfo {
   overflow: visible;
   color: black;
+  background-color: white;
 }
 ol li {
   margin: 10px 0px;
