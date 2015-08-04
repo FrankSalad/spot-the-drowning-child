@@ -30,7 +30,7 @@ function loadScript(src, callback)
   var gameState;
 
   function init() {
-    loadScript('https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js', function() {
+    loadScript('http://code.jquery.com/jquery-1.11.3.min.js', function() {
       loadScript('observable.min.js', function() {
         wireDom();
         youtubeInit(onPlayerReady, onPlayerStateChange);
@@ -168,13 +168,6 @@ function loadScript(src, callback)
         if (gameState.frameRefresh) {
           clearInterval(gameState.frameRefresh);
         }
-        loadScript('jquery-scrollto.js', function() {
-          setTimeout(function() {
-            $('#bottomsquare').ScrollTo({
-              duration: 1000
-            });
-          }, 4*1000);
-        });
         if (!gameState.winTime) {
           // Just show the play again link, player can't click anymore.
           dom.showStatus('Try again.');
