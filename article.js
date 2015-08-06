@@ -27,6 +27,12 @@ function getDom(parentDom) {
               description: 'An interactive PSA about the instinctive drowning response.',
               url: 'http://spotthedrowningchild.com'
             });
+              $('#wininfo .share span').on('click', function() {
+                amplitude.logEvent("wininfo share clicked");
+              });
+              $('#info .share span').on('click', function() {
+                amplitude.logEvent("info share clicked");
+              });
           });
         },
         showInfo: function showInfo() {
@@ -50,6 +56,13 @@ function getDom(parentDom) {
           }
         },
       };
+
+      $('#wininfo .play-again').on('click', function() {
+        amplitude.logEvent("wininfo playagain clicked");
+      });
+      $('#info .play-again').on('click', function() {
+        amplitude.logEvent("info playagain clicked");
+      });
 
       // Set up the play-again links:
       Videos.getYoutubePlayer().then(
