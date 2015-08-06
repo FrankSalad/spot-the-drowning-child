@@ -223,6 +223,9 @@ function loadScript(src, callback)
   }
 
   function end() {
+    if (gameState.ended)
+      return;
+    gameState.ended = true;
     function showPlayAgain() { dom.showPlayAgain(); }
     function showTryAgain() { dom.showTryAgain(); }
     ga('send', 'event', 'game', 'end', gameState.videoId);
