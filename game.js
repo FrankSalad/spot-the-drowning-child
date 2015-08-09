@@ -41,21 +41,6 @@ function loadScript(src, callback)
 
   function onPlayerReady(event) {
     setupGame(gameState);
-    if (gameState.frameRefresh)
-      clearInterval(gameState.frameRefresh);
-    gameState.frameRefresh = setInterval(function gameFrame() {
-      if (!player || !player.getCurrentTime || player.getPlayerState() !== YT.PlayerState.PLAYING)
-          return;
-      var time = player.getCurrentTime();
-      // State transitions: ok -> drowning -> spotted -> saved
-      if (time > gameState.swimmerSavedSecs && gameState.status() === 'spotted') {
-          gameState.status('saved');
-      } else if (time > gameState.whistleSecs && gameState.status() === 'drowning') {
-          gameState.status('spotted');
-      } else if (time > gameState.drowningStartSecs && gameState.status() === 'ok') {
-          gameState.status('drowning');
-      }
-    }, 100);
   }
 
   function youtubeInit(onPlayerReady, onPlayerStateChange) {
@@ -84,6 +69,7 @@ function loadScript(src, callback)
       scoreBox: $('#scorebox'),
       cursorLooks: $('.cursor-look'),
       cursorDot: $('#cursor-dot'),
+      article: $('#article'),
       showStatus: function showStatus(text) {
         this.statusText.text(text);
       },
@@ -106,11 +92,12 @@ function loadScript(src, callback)
         });
       },
       showTryAgain: function showTryAgain() {
-        this.tryAgain.attr('href', window.location.pathname + '?g=' + gameState.index);
+        this.tryAgain.attr('href', '#');
         this.tryAgain.show();
         this.statusLink.attr('style', '-webkit-animation: fadein 4s; animation: fadein 4s; -webkit-animation-fill-mode: forwards; animation-fill-mode: forwards;');
 
         this.tryAgain.on('click', function() {
+          reset();
           amplitude.logEvent("video replay clicked");
         });
       },
@@ -163,7 +150,6 @@ function loadScript(src, callback)
     gameState.status('ok');
     gameState.pauseCount = 0;
     gameState.ongoingPlayStatus = 'Spot the drowning child.';
-    player.cueVideoById(gameState.videoId, undefined, 'large');
     dom.findBox.attr('style', gameState.findBoxStyle);
     player.playVideo();
 
@@ -198,6 +184,33 @@ function loadScript(src, callback)
         end();
       }
     });
+
+    if (gameState.frameRefresh)
+      clearInterval(gameState.frameRefresh);
+    gameState.frameRefresh = setInterval(function gameFrame() {
+      if (!player || !player.getCurrentTime || player.getPlayerState() !== YT.PlayerState.PLAYING)
+          return;
+      var time = player.getCurrentTime();
+      // State transitions: ok -> drowning -> spotted -> saved
+      if (time > gameState.swimmerSavedSecs && gameState.status() === 'spotted') {
+          gameState.status('saved');
+      } else if (time > gameState.whistleSecs && gameState.status() === 'drowning') {
+          gameState.status('spotted');
+      } else if (time > gameState.drowningStartSecs && gameState.status() === 'ok') {
+          gameState.status('drowning');
+      }
+    }, 100);
+  }
+
+  function reset() {
+    dom.article.hide();
+    player.seekTo(0);
+    dom.scoreBox.removeClass('win-hue'); // Dim previous win time.
+    dom.cursorDot.removeClass('win-hue');
+    gameState.winTime = undefined;
+    gameState.pauseCount = 0;
+    gameState.ended = false;
+    setupGame(gameState);
   }
 
   function success() {
@@ -231,6 +244,7 @@ function loadScript(src, callback)
     if (time <= 0) {
       ga('send', 'event', 'game', 'predicted', gameState.videoId);
     }
+    dom.article.show();
     loadScript('article.js', function() {
       Article.getDom(dom).then(function(dom) {
         amplitude.logEvent("shown wininfo");
@@ -246,6 +260,7 @@ function loadScript(src, callback)
     function showPlayAgain() { dom.showPlayAgain(); }
     function showTryAgain() { dom.showTryAgain(); }
     ga('send', 'event', 'game', 'end', gameState.videoId);
+    dom.article.show();
     loadScript('article.js', function() {
       Article.getDom(dom).then(function(dom) {
         amplitude.logEvent("shown info");
