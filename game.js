@@ -188,7 +188,7 @@ function loadScript(src, callback)
         if (!gameState.winTime) {
           // Just show the play again link, player can't click anymore.
           dom.showStatus('Try again.');
-          amplitude.logEvent("game over");
+          amplitude.logEvent("game over", {'pauses': gameState.pauseCount});
         }
       } else if (newStatus === 'spotted') {
         if (!gameState.winTime) {
@@ -204,7 +204,7 @@ function loadScript(src, callback)
     gameState.winTime = player.getCurrentTime();
     ga('send', 'event', 'game', 'success', gameState.videoId);
     ga('send', 'event', gameState.videoId, 'win', 'game time', gameState.winTime);
-    amplitude.logEvent("drowner spotted", {'time': gameState.winTime});
+    amplitude.logEvent("drowner spotted", {'time': gameState.winTime, 'pauses': gameState.pauseCount});
 
     var status = gameState.status();
     gameState.status('spotted');
