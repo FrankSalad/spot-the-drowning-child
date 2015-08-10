@@ -86,7 +86,7 @@ ol li {
 .share.sharer-0 {
   display: inline !important;
   float: right;
-  width: 30px !important;
+  width: 36px !important;
 }
 .share.sharer-0 label {
   background: black !important;
@@ -99,7 +99,7 @@ ol li {
   display: none; /* Empty span takes width */
 }
 .share.sharer-0 .social.networks-5.left {
-  margin-left: -270px !important;
+  margin-left: -264px !important;
 }
 .share.sharer-0 .social.top {
   margin-top: -65px !important;
