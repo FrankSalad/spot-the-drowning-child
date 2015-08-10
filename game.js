@@ -204,13 +204,19 @@ function loadScript(src, callback)
 
   function reset() {
     dom.article.hide();
+    player.setPlaybackRate(1);
     player.seekTo(0);
     dom.scoreBox.removeClass('win-hue'); // Dim previous win time.
     dom.cursorDot.removeClass('win-hue');
+    dom.statusBox.removeClass('end');
     gameState.winTime = undefined;
     gameState.pauseCount = 0;
     gameState.ended = false;
+    Article.getDom(dom).then(function(dom) {
+      dom.winInfoBox.setAttribute('style', 'display: none;');
+    });
     setupGame(gameState);
+
   }
 
   function success() {
@@ -260,6 +266,7 @@ function loadScript(src, callback)
     function showPlayAgain() { dom.showPlayAgain(); }
     function showTryAgain() { dom.showTryAgain(); }
     ga('send', 'event', 'game', 'end', gameState.videoId);
+    dom.statusBox.addClass('end');
     dom.article.show();
     loadScript('article.js', function() {
       Article.getDom(dom).then(function(dom) {
