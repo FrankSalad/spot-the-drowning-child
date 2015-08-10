@@ -30,10 +30,23 @@ function loadScript(src, callback)
   var gameState;
 
   function init() {
+
     loadScript('http://code.jquery.com/jquery-1.11.3.min.js', function() {
       loadScript('observable.min.js', function() {
         wireDom();
         youtubeInit(onPlayerReady, onPlayerStateChange);
+
+        loadScript('share.min.js', function() {
+          new Share('.share', {
+            title: 'Spot The Drowning Child',
+            description: 'Can you spot the drowning child in this crowded wave pool?',
+            url: 'http://spotthedrowningchild.com',
+            ui: { button_text: '', flyout: 'top left'}
+          });
+          $('.status .share span').on('click', function() {
+            amplitude.logEvent("video share clicked");
+          });
+        });
       });
     });
   }

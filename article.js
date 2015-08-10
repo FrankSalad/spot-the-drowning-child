@@ -22,9 +22,9 @@ function getDom(parentDom) {
             return;
           this._shareSetup = true;
           loadScript('share.min.js', function() {
-              new Share('.share', {
+              new Share('#article .share', {
               title: 'Spot The Drowning Child',
-              description: 'An interactive PSA about the instinctive drowning response.',
+              description: 'Can you spot the drowning child in this crowded wave pool?',
               url: 'http://spotthedrowningchild.com'
             });
               $('#wininfo .share span').on('click', function() {
