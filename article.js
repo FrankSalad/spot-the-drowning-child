@@ -27,10 +27,10 @@ function getDom(parentDom) {
               description: 'Can you spot the drowning child in this crowded wave pool?',
               url: 'http://spotthedrowningchild.com'
             });
-              $('#wininfo .share span').on('click', function() {
+              $('#wininfo .share label').on('click', function() {
                 amplitude.logEvent("wininfo share clicked");
               });
-              $('#info .share span').on('click', function() {
+              $('#info .share label').on('click', function() {
                 amplitude.logEvent("info share clicked");
               });
           });

@@ -43,7 +43,7 @@ function loadScript(src, callback)
             url: 'http://spotthedrowningchild.com',
             ui: { button_text: '', flyout: 'top left'}
           });
-          $('.status .share span').on('click', function() {
+          $('.status .share label').on('click', function() {
             amplitude.logEvent("video share clicked");
           });
         });
