@@ -83,33 +83,11 @@ ol li {
   vertical-align: top;
   margin: 25px 20px;
 }
-.share.sharer-0 {
-  display: inline !important;
-  float: right;
-  width: 36px !important;
-}
-.share.sharer-0 label {
-  background: black !important;
-  color: #777 !important;
-}
-.end .share.sharer-0 label {
-  color: #CCC !important;
-}
-.share.sharer-0 label span {
-  display: none; /* Empty span takes width */
-}
-.share.sharer-0 .social.networks-5.left {
-  margin-left: -264px !important;
-}
-.share.sharer-0 .social.top {
-  margin-top: -65px !important;
-}
 .share.sharer-1 label, .share.sharer-2 label {
   background: #EF2B2F !important;
   color: #FFF !important;
   box-shadow: -2px 2px 5px #111;
 }
-
 .nav {
   text-align: left;
   font-family: "Oxygen", sans-serif;
