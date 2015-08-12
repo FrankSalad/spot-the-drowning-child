@@ -78,12 +78,12 @@
 ol li {
   margin: 10px 0px;
 }
-.share.sharer-1, .share.sharer-2  {
+.share.sharer-1, .share.sharer-0  {
   display: inline-block !important;
   vertical-align: top;
   margin: 25px 20px;
 }
-.share.sharer-1 label, .share.sharer-2 label {
+.share.sharer-1 label, .share.sharer-0 label {
   background: #EF2B2F !important;
   color: #FFF !important;
   box-shadow: -2px 2px 5px #111;
