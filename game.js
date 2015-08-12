@@ -44,7 +44,7 @@ function loadScript(src, callback)
             ui: { button_text: '', flyout: 'top left'}
           });
           $('.status .share label').on('click', function() {
-            amplitude.logEvent("video share clicked");
+            amplitude.logEvent("video share clicked", {'replays': gameState.replays});
           });
         });
       });
@@ -101,7 +101,7 @@ function loadScript(src, callback)
         this.statusLink.attr('style', '-webkit-animation: fadein 4s; animation: fadein 4s; -webkit-animation-fill-mode: forwards; animation-fill-mode: forwards;');
 
         this.playAgain.on('click', function() {
-          amplitude.logEvent("video playagain clicked");
+          amplitude.logEvent("video playagain clicked", {'replays': gameState.replays});
         });
       },
       showTryAgain: function showTryAgain() {
@@ -111,7 +111,7 @@ function loadScript(src, callback)
 
         this.tryAgain.on('click', function() {
           reset();
-          amplitude.logEvent("video replay clicked");
+          amplitude.logEvent("video replay clicked", {'replays': gameState.replays});
         });
       },
       showCursorDot: function showCursorDot(x, y, win) {
@@ -169,7 +169,7 @@ function loadScript(src, callback)
     ga('set', 'dimension1', gameState.videoId);
     ga('send', 'event', 'game', 'setup', gameState.videoId);
     amplitude.setUserProperties({videoId: gameState.videoId});
-    amplitude.logEvent("game setup");
+    amplitude.logEvent("game setup", {'replays': gameState.replays});
 
     gameState.status(function(newStatus) {
       if (newStatus === 'drowning') {
@@ -187,7 +187,7 @@ function loadScript(src, callback)
         if (!gameState.winTime) {
           // Just show the play again link, player can't click anymore.
           dom.showStatus('Try again. Click the video to help the lifeguard.');
-          amplitude.logEvent("game over", {'pauses': gameState.pauseCount});
+          amplitude.logEvent("game over", {'pauses': gameState.pauseCount, 'replays': gameState.replays});
         }
       } else if (newStatus === 'spotted') {
         if (!gameState.winTime) {
@@ -225,6 +225,9 @@ function loadScript(src, callback)
     gameState.winTime = undefined;
     gameState.pauseCount = 0;
     gameState.ended = false;
+    if (gameState.replays === undefined)
+      gameState.replays = 0;
+    gameState.replays += 1;
     Article.getDom(dom).then(function(dom) {
       dom.winInfoBox.setAttribute('style', 'display: none;');
     });
@@ -236,7 +239,7 @@ function loadScript(src, callback)
     gameState.winTime = player.getCurrentTime();
     ga('send', 'event', 'game', 'success', gameState.videoId);
     ga('send', 'event', gameState.videoId, 'win', 'game time', gameState.winTime);
-    amplitude.logEvent("drowner spotted", {'time': gameState.winTime, 'pauses': gameState.pauseCount});
+    amplitude.logEvent("drowner spotted", {'time': gameState.winTime, 'pauses': gameState.pauseCount, 'replays': gameState.replays});
 
     var status = gameState.status();
     gameState.status('spotted');
@@ -266,7 +269,7 @@ function loadScript(src, callback)
     dom.article.show();
     loadScript('article.js', function() {
       Article.getDom(dom).then(function(dom) {
-        amplitude.logEvent("shown wininfo");
+        amplitude.logEvent("shown wininfo", {'replays': gameState.replays});
         dom.showWinInfo(time < 0);
       });
     });
@@ -283,7 +286,7 @@ function loadScript(src, callback)
     dom.article.show();
     loadScript('article.js', function() {
       Article.getDom(dom).then(function(dom) {
-        amplitude.logEvent("shown info");
+        amplitude.logEvent("shown info", {'replays': gameState.replays});
         showPlayAgain();
         showTryAgain();
         dom.showInfo();
