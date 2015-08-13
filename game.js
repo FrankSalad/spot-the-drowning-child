@@ -234,7 +234,6 @@ function loadScript(src, callback)
   }
 
   function reset() {
-    dom.article.hide();
     player.setPlaybackRate(1);
     player.seekTo(0);
     dom.scoreBox.removeClass('win-hue'); // Dim previous win time.
@@ -248,7 +247,8 @@ function loadScript(src, callback)
     dom.tryAgain.attr('style', 'display: inline;'); // Stop throbbing.
     dom.showStatus(gameState.ongoingPlayStatus);
     Article.getDom(dom).then(function(dom) {
-      dom.winInfoBox.setAttribute('style', 'display: none;');
+      dom.winInfoBox.hide();
+      dom.infoBox.hide();
     });
     setupGame(gameState);
 
@@ -285,7 +285,6 @@ function loadScript(src, callback)
     if (time <= 0) {
       ga('send', 'event', 'game', 'predicted', gameState.videoId);
     }
-    dom.article.show();
     loadScript('article.js', function() {
       Article.getDom(dom).then(function(dom) {
         amplitude.logEvent("shown wininfo", {'replays': gameState.replays});
@@ -303,7 +302,6 @@ function loadScript(src, callback)
     function showTryAgain() { dom.showTryAgain(); }
     ga('send', 'event', 'game', 'end', gameState.videoId);
     dom.statusBox.addClass('end');
-    dom.article.show();
     loadScript('article.js', function() {
       Article.getDom(dom).then(function(dom) {
         amplitude.logEvent("shown info", {'replays': gameState.replays});

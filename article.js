@@ -12,8 +12,8 @@ function getDom(parentDom) {
   var promise = new Promise(function(resolve, reject) {
     $('#article').load('article.html', undefined, function loaded() {
       var dom = {
-        infoBox: document.getElementById('info'),
-        winInfoBox: document.getElementById('wininfo'),
+        infoBox: $('#info'),
+        winInfoBox: $('#wininfo'),
         creatorLink: document.getElementById('creator-link'),
         playAgain: $('.play-again'),
         tryAgain: $('.try-again'),
@@ -43,7 +43,11 @@ function getDom(parentDom) {
           this.setupShareButton();
           var dom = this;
           setTimeout(function() {
-            dom.infoBox.setAttribute('style', 'display: block;');
+            dom.infoBox.fadeIn('slow').animate({
+                'bottom': '54%'
+                }, {duration: 'slow', queue: false}, function() {
+                // Animation complete.
+            });
           }, 3500);
         },
         showWinInfo: function showWinInfo(creatorLink) {
@@ -51,7 +55,11 @@ function getDom(parentDom) {
           parentDom.statusBox.addClass('win');
           var dom = this;
           setTimeout(function() {
-            dom.winInfoBox.setAttribute('style', 'display: block;');
+            dom.winInfoBox.fadeIn('slow').animate({
+                'bottom': '54%'
+                }, {duration: 'slow', queue: false}, function() {
+                // Animation complete.
+            });
           }, 3500);
           loadScript('buoy.js', function() {});
 
