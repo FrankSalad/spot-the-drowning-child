@@ -118,11 +118,12 @@ function loadScript(src, callback)
         this.statusLink.attr('style', '-webkit-animation: fadein 4s; animation: fadein 4s; -webkit-animation-fill-mode: forwards; animation-fill-mode: forwards;');
 
         var self = this;
-        if (!gameState.winTime) {
-          setTimeout(function() {
+        setTimeout(function() {
+          if (!gameState.winTime) {
             self.tryAgain.attr('style', 'display: inline; -webkit-animation: cursor-throb 2s infinite ease; animation: cursor-throb 2s infinite ease;');
-          }, (gameState.swimmerSavedSecs - player.getCurrentTime()) * 1000); // Throb after lifeguard reaches.
-        }
+          }
+        }, (gameState.swimmerSavedSecs - player.getCurrentTime()) * 1000); // Throb after lifeguard reaches.
+
         this.tryAgain.on('click', function() {
           reset();
           amplitude.logEvent("video replay clicked", {'replays': gameState.replays});
@@ -203,7 +204,7 @@ function loadScript(src, callback)
         }
         if (!gameState.winTime) {
           // Just show the play again link, player can't click anymore.
-          dom.showStatus('Try again. Help the lifeguard by clicking the video.');
+          dom.showStatus('Try again. Click the video to help the lifeguard.');
           amplitude.logEvent("game over", {'pauses': gameState.pauseCount, 'replays': gameState.replays});
         }
       } else if (newStatus === 'spotted') {
@@ -331,7 +332,11 @@ function loadScript(src, callback)
           var pauseMsg = pickRandom(pauseMsgs);
           dom.showStatus(pauseMsg + ' Keep looking.');
         }
-      } else if (status === 'spotted' || status === 'saved') {
+      }
+      if (status === 'spotted') {
+        dom.showStatus('Click the video to help the lifeguard.');
+      }
+      if (status === 'spotted' || status === 'saved') {
         end();
       }
     } else if (event.data === YT.PlayerState.PLAYING) {
@@ -341,7 +346,7 @@ function loadScript(src, callback)
       ga('send', 'event', 'game', 'played', gameState.videoId);
       if (!dom.isMobile())
         dom.cursorLooks.show();
-      if (status === 'drowning' || status === 'ok') {
+      if (status === 'drowning' || status === 'ok' || status === 'spotted') {
         dom.hideCursorDot();
         if (!gameState.winTime) {
           dom.showStatus(gameState.ongoingPlayStatus);
