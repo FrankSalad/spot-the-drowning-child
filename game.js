@@ -161,7 +161,10 @@ function loadScript(src, callback)
   function setupGame(gameState) {
     gameState.status = observable();
     gameState.status('ok');
+
     gameState.pauseCount = 0;
+    if (gameState.replays === undefined)
+      gameState.replays = 0;
     gameState.ongoingPlayStatus = 'Spot the drowning child.';
     dom.findBox.attr('style', gameState.findBoxStyle);
     player.playVideo();
@@ -225,8 +228,6 @@ function loadScript(src, callback)
     gameState.winTime = undefined;
     gameState.pauseCount = 0;
     gameState.ended = false;
-    if (gameState.replays === undefined)
-      gameState.replays = 0;
     gameState.replays += 1;
     Article.getDom(dom).then(function(dom) {
       dom.winInfoBox.setAttribute('style', 'display: none;');
