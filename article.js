@@ -17,6 +17,7 @@ function getDom(parentDom) {
         creatorLink: document.getElementById('creator-link'),
         playAgain: $('.play-again'),
         tryAgain: $('.try-again'),
+        winStatus: $('.win-status'),
         setupShareButton: function setupShareButton() {
           if (this._shareSetup === true)
             return;
@@ -34,6 +35,9 @@ function getDom(parentDom) {
                 amplitude.logEvent("info share clicked");
               });
           });
+        },
+        showWinStatus: function showWinStatus(status) {
+          this.winStatus.text(status);
         },
         showInfo: function showInfo() {
           this.setupShareButton();

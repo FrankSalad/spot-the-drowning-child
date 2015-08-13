@@ -271,6 +271,7 @@ function loadScript(src, callback)
       Article.getDom(dom).then(function(dom) {
         amplitude.logEvent("shown wininfo", {'replays': gameState.replays});
         dom.showWinInfo(time < 0);
+        dom.showWinStatus(msg);
       });
     });
   }
