@@ -229,6 +229,8 @@ function loadScript(src, callback)
     gameState.pauseCount = 0;
     gameState.ended = false;
     gameState.replays += 1;
+    gameState.videoEnded = false;
+    dom.showStatus(gameState.ongoingPlayStatus);
     Article.getDom(dom).then(function(dom) {
       dom.winInfoBox.setAttribute('style', 'display: none;');
     });
@@ -302,7 +304,9 @@ function loadScript(src, callback)
   function onPlayerStateChange(event) {
     var status = gameState.status();
     if (event.data === YT.PlayerState.ENDED) {
+      dom.cursorLooks.hide();
       end();
+      gameState.videoEnded = true;
     } else if (event.data === YT.PlayerState.PAUSED) {
       gameState.pauseCount += 1;
       ga('send', 'event', 'game', 'paused', gameState.videoId, gameState.pauseCount);
@@ -316,6 +320,9 @@ function loadScript(src, callback)
         end();
       }
     } else if (event.data === YT.PlayerState.PLAYING) {
+      if (gameState.videoEnded) {
+        reset();  // Reset on video loop.
+      }
       ga('send', 'event', 'game', 'played', gameState.videoId);
       if (!dom.isMobile())
         dom.cursorLooks.show();
