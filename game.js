@@ -100,6 +100,14 @@ function loadScript(src, callback)
         this.playAgain.show();
         this.statusLink.attr('style', '-webkit-animation: fadein 4s; animation: fadein 4s; -webkit-animation-fill-mode: forwards; animation-fill-mode: forwards;');
 
+        // Not sure if I like the throb for the play another link.
+        // var self = this;
+        // if (gameState.winTime) {
+        //   setTimeout(function() {
+        //     self.playAgain.attr('style', 'display: inline; -webkit-animation: cursor-throb 2s infinite ease; animation: cursor-throb 2s infinite ease;');
+        //   }, (gameState.swimmerSavedSecs - player.getCurrentTime()) * 1000); // Throb after lifeguard reaches.
+        // }
+
         this.playAgain.on('click', function() {
           amplitude.logEvent("video playagain clicked", {'replays': gameState.replays});
         });
@@ -109,6 +117,12 @@ function loadScript(src, callback)
         this.tryAgain.show();
         this.statusLink.attr('style', '-webkit-animation: fadein 4s; animation: fadein 4s; -webkit-animation-fill-mode: forwards; animation-fill-mode: forwards;');
 
+        var self = this;
+        if (!gameState.winTime) {
+          setTimeout(function() {
+            self.tryAgain.attr('style', 'display: inline; -webkit-animation: cursor-throb 2s infinite ease; animation: cursor-throb 2s infinite ease;');
+          }, (gameState.swimmerSavedSecs - player.getCurrentTime()) * 1000); // Throb after lifeguard reaches.
+        }
         this.tryAgain.on('click', function() {
           reset();
           amplitude.logEvent("video replay clicked", {'replays': gameState.replays});
@@ -189,7 +203,7 @@ function loadScript(src, callback)
         }
         if (!gameState.winTime) {
           // Just show the play again link, player can't click anymore.
-          dom.showStatus('Try again. Click the video to help the lifeguard.');
+          dom.showStatus('Try again. Help the lifeguard by clicking the video.');
           amplitude.logEvent("game over", {'pauses': gameState.pauseCount, 'replays': gameState.replays});
         }
       } else if (newStatus === 'spotted') {
@@ -230,6 +244,7 @@ function loadScript(src, callback)
     gameState.ended = false;
     gameState.replays += 1;
     gameState.videoEnded = false;
+    dom.tryAgain.attr('style', 'display: inline;'); // Stop throbbing.
     dom.showStatus(gameState.ongoingPlayStatus);
     Article.getDom(dom).then(function(dom) {
       dom.winInfoBox.setAttribute('style', 'display: none;');
