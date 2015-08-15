@@ -106,13 +106,14 @@ function loadScript(src, callback)
         this.statusLink.attr('style', '-webkit-animation: fadein 4s; animation: fadein 4s; -webkit-animation-fill-mode: forwards; animation-fill-mode: forwards;');
 
         var self = this;
-        setTimeout(function() {
+        var throbWait = setTimeout(function() {
           if (!gameState.winTime) {
-            self.tryAgain.attr('style', 'display: inline; -webkit-animation: cursor-throb 2s infinite ease; animation: cursor-throb 2s infinite ease;');
+            self.tryAgain.attr('style', 'display: inline; -webkit-animation: cursor-throb 2s infinite ease reverse; animation: cursor-throb 2s infinite ease reverse;');
           }
         }, (gameState.swimmerSavedSecs - player.getCurrentTime()) * 1000); // Throb after lifeguard reaches.
 
         this.tryAgain.on('click', function() {
+          clearTimeout(throbWait);
           reset();
           amplitude.logEvent("video replay clicked", {'replays': gameState.replays});
         });
