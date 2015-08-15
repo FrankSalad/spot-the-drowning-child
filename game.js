@@ -35,18 +35,6 @@ function loadScript(src, callback)
       loadScript('observable.min.js', function() {
         wireDom();
         youtubeInit(onPlayerReady, onPlayerStateChange);
-
-        loadScript('share.min.js', function() {
-          new Share('.share', {
-            title: 'Spot The Drowning Child',
-            description: 'Can you spot the drowning child in this crowded wave pool?',
-            url: 'http://spotthedrowningchild.com',
-            ui: { button_text: '', flyout: 'top left'}
-          });
-          $('.status .share label').on('click', function() {
-            amplitude.logEvent("video share clicked", {'replays': gameState.replays});
-          });
-        });
       });
     });
   }
@@ -186,7 +174,7 @@ function loadScript(src, callback)
 
     ga('set', 'dimension1', gameState.videoId);
     ga('send', 'event', 'game', 'setup', gameState.videoId);
-    amplitude.setUserProperties({videoId: gameState.videoId});
+    amplitude.setUserProperties({videoId: gameState.videoId, 'replays': gameState.replays});
     amplitude.logEvent("game setup", {'replays': gameState.replays});
 
     gameState.status(function(newStatus) {

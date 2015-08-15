@@ -22,18 +22,17 @@ function getDom(parentDom) {
           if (this._shareSetup === true)
             return;
           this._shareSetup = true;
-          loadScript('share.min.js', function() {
-              new Share('#article .share', {
-              title: 'Spot The Drowning Child',
-              description: 'Can you spot the drowning child in this crowded wave pool?',
-              url: 'http://spotthedrowningchild.com'
-            });
-              $('#wininfo .share label').on('click', function() {
-                amplitude.logEvent("wininfo share clicked");
-              });
-              $('#info .share label').on('click', function() {
-                amplitude.logEvent("info share clicked");
-              });
+
+          new Share('#article .share', {
+            title: 'Spot The Drowning Child',
+            description: 'Can you spot the drowning child in this crowded wave pool?',
+            url: 'http://spotthedrowningchild.com'
+          });
+          $('#wininfo .share label').on('click', function() {
+            amplitude.logEvent("wininfo share clicked");
+          });
+          $('#info .share label').on('click', function() {
+            amplitude.logEvent("info share clicked");
           });
         },
         showWinStatus: function showWinStatus(status) {
