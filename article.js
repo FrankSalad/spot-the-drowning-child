@@ -55,9 +55,9 @@ function getDom(parentDom) {
           });
           loadScript('buoy.js', function() {});
 
-          //if (creatorLink) {
+          if (creatorLink) {
             this.creatorLink.attr('style', 'display: inline-block');
-          //}
+          }
         },
       };
 
