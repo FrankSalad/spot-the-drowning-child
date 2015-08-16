@@ -40,9 +40,7 @@ function getDom(parentDom) {
           var dom = this;
           dom.infoBox.fadeIn('slow').animate({
               'bottom': '54%'
-              }, {duration: 'slow', queue: false}, function() {
-              // Animation complete.
-          });
+              }, {duration: 'slow', queue: false});
         },
         showWinInfo: function showWinInfo(creatorLink) {
           this.setupShareButton();
@@ -50,13 +48,7 @@ function getDom(parentDom) {
           var dom = this;
           dom.winInfoBox.fadeIn('slow').animate({
               'bottom': '54%'
-              }, {duration: 'slow', queue: false,
-              complete: function() {
-                // Spotify embed very finiky about loading in hidden frame.
-                var song = 'https://api.soundcloud.com/tracks/219074591';
-                var widget = SC.Widget('janelle');
-                widget.load(song);
-              }});
+              }, {duration: 'slow', queue: false});
           loadScript('buoy.js', function() {});
 
           if (creatorLink) {
