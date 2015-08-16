@@ -1,5 +1,5 @@
 /*global window: false */
-(function(Videos) {
+(function(Videos, ShareConfig) {
 "use strict";
 if (window.Article)
   return;
@@ -23,11 +23,8 @@ function getDom(parentDom) {
             return;
           this._shareSetup = true;
 
-          new Share('#article .share', {
-            title: 'Spot The Drowning Child',
-            description: 'Can you spot the drowning child in this crowded wave pool?',
-            url: 'http://spotthedrowningchild.com'
-          });
+          new Share('#wininfo .share', ShareConfig('wininfo'));
+          new Share('#info .share', ShareConfig('info'));
           $('#wininfo .share label').on('click', function() {
             amplitude.logEvent("wininfo share clicked");
           });
@@ -94,4 +91,4 @@ function getDom(parentDom) {
 }
 
 window.Article.getDom = getDom;
-})(window.Videos);
+})(window.Videos, window.ShareConfig);
