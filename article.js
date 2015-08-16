@@ -14,7 +14,7 @@ function getDom(parentDom) {
       var dom = {
         infoBox: $('#info'),
         winInfoBox: $('#wininfo'),
-        creatorLink: document.getElementById('creator-link'),
+        creatorLink: $('#creator-link'),
         playAgain: $('.play-again'),
         tryAgain: $('.try-again'),
         winStatus: $('.win-status'),
@@ -56,7 +56,7 @@ function getDom(parentDom) {
           loadScript('buoy.js', function() {});
 
           if (creatorLink) {
-            this.creatorLink.setAttribute('style', 'display: inline-block');
+            this.creatorLink.attr('style', 'display: inline-block');
           }
         },
       };
@@ -67,6 +67,12 @@ function getDom(parentDom) {
       $('#info .play-again').on('click', function() {
         amplitude.logEvent("info playagain clicked");
       });
+
+      dom.creatorLink.on('click', function() {
+        amplitude.logEvent("creator link clicked");
+      });
+
+
 
       // Set up the play-again links:
       Videos.getYoutubePlayer().then(
