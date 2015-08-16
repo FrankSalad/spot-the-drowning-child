@@ -61,6 +61,19 @@
     50% {opacity: .3;}
     100% {opacity: 1;}
 }
+
+@keyframes link-throb {
+    0% {border-bottom-color: #B8DBD3;}
+    50% {border-bottom-color: black;}
+    100% {border-bottom-color: #B8DBD3;}
+}
+
+@-webkit-keyframes link-throb {
+    0% {border-bottom-color: #B8DBD3;}
+    50% {border-bottom-color: black;}
+    100% {border-bottom-color: #B8DBD3;}
+}
+
 .info {
   display: none;
   color: #0D3E42;
