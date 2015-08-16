@@ -40,9 +40,7 @@ function getDom(parentDom) {
           var dom = this;
           dom.infoBox.fadeIn('slow').animate({
               'bottom': '54%'
-              }, {duration: 'slow', queue: false}, function() {
-              // Animation complete.
-          });
+              }, {duration: 'slow', queue: false});
         },
         showWinInfo: function showWinInfo(creatorLink) {
           this.setupShareButton();
@@ -50,15 +48,24 @@ function getDom(parentDom) {
           var dom = this;
           dom.winInfoBox.fadeIn('slow').animate({
               'bottom': '54%'
-              }, {duration: 'slow', queue: false}, function() {
-              // Animation complete.
-          });
+              }, {duration: 'slow', queue: false});
           loadScript('buoy.js', function() {});
 
           if (creatorLink) {
             this.creatorLink.attr('style', 'display: inline-block');
           }
         },
+        showEmbed: function showEmbed() {
+          Videos.getYoutubePlayer().then(
+          function(player_gameState) {
+            var player = player_gameState[0];
+            player.pauseVideo();
+          });
+
+          $('.blm-reveal').attr('style', 'opacity: 1; height: auto;');
+          var iframe = $('.blm-reveal iframe');
+          iframe.attr('src', iframe.attr('data-src'));
+        }
       };
 
       $('#wininfo .play-again').on('click', function() {
@@ -70,6 +77,7 @@ function getDom(parentDom) {
 
       dom.creatorLink.on('click', function() {
         amplitude.logEvent("creator link clicked");
+        dom.showEmbed();
       });
 
 
