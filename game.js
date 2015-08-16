@@ -238,7 +238,8 @@ function loadScript(src, callback)
     gameState.ended = false;
     gameState.replays += 1;
     gameState.videoEnded = false;
-    dom.tryAgain.attr('style', 'display: inline;'); // Stop throbbing.
+    dom.tryAgain.attr('style', 'display: inline-block;'); // Stop throbbing.
+    dom.playAgain.attr('style', 'display: inline-block;'); // Stop throbbing.
     dom.showStatus(gameState.ongoingPlayStatus);
     Article.getDom(dom).then(function(dom) {
       dom.winInfoBox.hide();
