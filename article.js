@@ -50,15 +50,33 @@ function getDom(parentDom) {
           var dom = this;
           dom.winInfoBox.fadeIn('slow').animate({
               'bottom': '54%'
-              }, {duration: 'slow', queue: false}, function() {
-              // Animation complete.
-          });
+              }, {duration: 'slow', queue: false,
+              complete: function() {
+                // Spotify embed very finiky about loading in hidden frame.
+                var song = 'https://api.soundcloud.com/tracks/219074591';
+                var widget = SC.Widget('janelle');
+                widget.load(song);
+              }});
           loadScript('buoy.js', function() {});
 
           if (creatorLink) {
             this.creatorLink.attr('style', 'display: inline-block');
           }
         },
+        showEmbed: function showEmbed() {
+          Videos.getYoutubePlayer().then(
+          function(player_gameState) {
+            var player = player_gameState[0];
+            player.pauseVideo();
+          });
+
+          $('.blm-reveal').attr('style', 'opacity: 1; height: auto;');
+          if (!parentDom.isMobile()) {
+            // Autoplay not supported on iOS
+            var widget = SC.Widget('janelle');
+            widget.play();
+          }
+        }
       };
 
       $('#wininfo .play-again').on('click', function() {
@@ -70,6 +88,7 @@ function getDom(parentDom) {
 
       dom.creatorLink.on('click', function() {
         amplitude.logEvent("creator link clicked");
+        dom.showEmbed();
       });
 
 
