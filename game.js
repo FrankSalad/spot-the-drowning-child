@@ -195,7 +195,7 @@ function loadScript(src, callback)
         }
         if (!gameState.winTime) {
           // Just show the play again link, player can't click anymore.
-          dom.showStatus('Try again. Click the video to help the lifeguard.');
+          dom.showStatus('Try again. Click the child during the video to help the lifeguard.');
           amplitude.logEvent("game over", {'pauses': gameState.pauseCount, 'replays': gameState.replays});
         }
       } else if (newStatus === 'spotted') {
