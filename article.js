@@ -71,11 +71,8 @@ function getDom(parentDom) {
           });
 
           $('.blm-reveal').attr('style', 'opacity: 1; height: auto;');
-          if (!parentDom.isMobile()) {
-            // Autoplay not supported on iOS
-            var widget = SC.Widget('janelle');
-            widget.play();
-          }
+          var iframe = $('.blm-reveal iframe');
+          iframe.attr('src', iframe.attr('data-src'));
         }
       };
 
