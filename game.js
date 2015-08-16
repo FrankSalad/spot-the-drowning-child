@@ -264,7 +264,7 @@ function loadScript(src, callback)
     gameState.winTime = player.getCurrentTime();
     ga('send', 'event', 'game', 'success', gameState.videoId);
     ga('send', 'event', gameState.videoId, 'win', 'game time', gameState.winTime);
-    amplitude.logEvent("drowner spotted", {'time': gameState.winTime, 'pauses': gameState.pauseCount, 'replays': gameState.replays});
+
 
     var status = gameState.status();
     gameState.status('spotted');
@@ -285,6 +285,7 @@ function loadScript(src, callback)
 
 
     var time = gameState.winTime - gameState.whistleSecs;
+    amplitude.logEvent("drowner spotted", {'time': gameState.winTime, 'wtime': time, 'pauses': gameState.pauseCount, 'replays': gameState.replays});
     var msg = pickRandom(successMsgs);
     dom.showStatus(msg);
     dom.showTime(time);
