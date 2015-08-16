@@ -41,25 +41,21 @@ function getDom(parentDom) {
         showInfo: function showInfo() {
           this.setupShareButton();
           var dom = this;
-          setTimeout(function() {
-            dom.infoBox.fadeIn('slow').animate({
-                'bottom': '54%'
-                }, {duration: 'slow', queue: false}, function() {
-                // Animation complete.
-            });
-          }, 3500);
+          dom.infoBox.fadeIn('slow').animate({
+              'bottom': '54%'
+              }, {duration: 'slow', queue: false}, function() {
+              // Animation complete.
+          });
         },
         showWinInfo: function showWinInfo(creatorLink) {
           this.setupShareButton();
           parentDom.statusBox.addClass('win');
           var dom = this;
-          setTimeout(function() {
-            dom.winInfoBox.fadeIn('slow').animate({
-                'bottom': '54%'
-                }, {duration: 'slow', queue: false}, function() {
-                // Animation complete.
-            });
-          }, 3500);
+          dom.winInfoBox.fadeIn('slow').animate({
+              'bottom': '54%'
+              }, {duration: 'slow', queue: false}, function() {
+              // Animation complete.
+          });
           loadScript('buoy.js', function() {});
 
           if (creatorLink) {

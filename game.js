@@ -290,8 +290,10 @@ function loadScript(src, callback)
     loadScript('article.js', function() {
       Article.getDom(dom).then(function(dom) {
         amplitude.logEvent("shown wininfo", {'replays': gameState.replays});
-        dom.showWinInfo(time < 0);
-        dom.showWinStatus(msg);
+        schedule(function() {
+          dom.showWinInfo(time < 0);
+          dom.showWinStatus(msg);
+        }, 2);
       });
     });
   }
@@ -309,7 +311,9 @@ function loadScript(src, callback)
         amplitude.logEvent("shown info", {'replays': gameState.replays});
         showPlayAgain();
         showTryAgain();
-        dom.showInfo();
+        schedule(function() {
+          dom.showInfo();
+        }, 2);
       });
     });
   }
