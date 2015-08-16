@@ -181,24 +181,22 @@ function loadScript(src, callback)
     amplitude.logEvent("game setup", {'replays': gameState.replays});
 
     gameState.status(function(newStatus) {
-      if (newStatus === 'drowning') {
+      if (newStatus === 'ok') {
+        dom.findBox.attr('style', 'display: none;');
+        gameState.ongoingPlayStatus = 'Spot the drowning child.';
+        dom.showStatus(gameState.ongoingPlayStatus);
+      }
+      else if (newStatus === 'drowning') {
         dom.findBox.attr('style', 'display: block;' + gameState.findBoxStyle);
-        setTimeout(function() {
-          if (!gameState.winTime) {
-            gameState.ongoingPlayStatus = 'Spot the drowning child.';
-            dom.showStatus(gameState.ongoingPlayStatus);
-          }
-        }, (gameState.whistleSecs - gameState.drowningStartSecs) * Math.random() * 1000);
-      } else if (newStatus === 'saved') {
-        if (gameState.frameRefresh) {
-          clearInterval(gameState.frameRefresh);
-        }
+      }
+      else if (newStatus === 'saved') {
         if (!gameState.winTime) {
           // Just show the play again link, player can't click anymore.
           dom.showStatus('Try again. Click the child during the video to help the lifeguard.');
           amplitude.logEvent("game over", {'pauses': gameState.pauseCount, 'replays': gameState.replays});
         }
-      } else if (newStatus === 'spotted') {
+      }
+      else if (newStatus === 'spotted') {
         if (!gameState.winTime) {
           gameState.ongoingPlayStatus = 'Spot the drowning child.';
           dom.showStatus(gameState.ongoingPlayStatus);
@@ -214,12 +212,14 @@ function loadScript(src, callback)
           return;
       var time = player.getCurrentTime();
       // State transitions: ok -> drowning -> spotted -> saved
-      if (time > gameState.swimmerSavedSecs && gameState.status() === 'spotted') {
-          gameState.status('saved');
-      } else if (time > gameState.whistleSecs && gameState.status() === 'drowning') {
-          gameState.status('spotted');
-      } else if (time > gameState.drowningStartSecs && gameState.status() === 'ok') {
-          gameState.status('drowning');
+      if (time > gameState.swimmerSavedSecs) {
+        gameState.status('saved');
+      } else if (time > gameState.whistleSecs) {
+        gameState.status('spotted');
+      } else if (time > gameState.drowningStartSecs) {
+        gameState.status('drowning');
+      } else {
+        gameState.status('ok');
       }
       while (gameEvents.length && gameEvents.peek().time <= time) {
         gameEvents.dequeue().callback();
@@ -327,6 +327,8 @@ function loadScript(src, callback)
       dom.cursorLooks.hide();
       end();
       gameState.videoEnded = true;
+      if (gameState.frameRefresh)
+        clearInterval(gameState.frameRefresh);
     } else if (event.data === YT.PlayerState.PAUSED) {
       gameState.pauseCount += 1;
       ga('send', 'event', 'game', 'paused', gameState.videoId, gameState.pauseCount);
@@ -351,7 +353,8 @@ function loadScript(src, callback)
       if (!dom.isMobile())
         dom.cursorLooks.show();
       if (status === 'drowning' || status === 'ok' || status === 'spotted') {
-        dom.hideCursorDot();
+        if (status === 'drowning' || status === 'ok')
+          dom.hideCursorDot();
         if (!gameState.winTime) {
           dom.showStatus(gameState.ongoingPlayStatus);
         }
