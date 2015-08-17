@@ -26,10 +26,10 @@ function getDom(parentDom) {
           new Share('#wininfo .share', ShareConfig('wininfo'));
           new Share('#info .share', ShareConfig('info'));
           $('#wininfo .share label').on('click', function() {
-            amplitude.logEvent("wininfo share clicked");
+            amplitude.logEvent("share clicked", {'location': 'wininfo'});
           });
           $('#info .share label').on('click', function() {
-            amplitude.logEvent("info share clicked");
+            amplitude.logEvent("share clicked", {'location': 'info'});
           });
         },
         showWinStatus: function showWinStatus(status) {
