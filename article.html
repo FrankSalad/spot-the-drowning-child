@@ -1,11 +1,15 @@
 <style>
+#article {
+  width: 854px;
+}
 #article .blm-reveal {
   opacity: 0;
   height: 0;
   width: 100%;
+  margin: 30px 0 0 0;
 }
 #article .share.sharer-0 {
-  margin: 0 20px 0 0;
+  margin: 6px 20px 0 0;
   width: auto;
   height: auto;
   vertical-align: middle;
@@ -20,9 +24,25 @@
 #article .share.sharer-0 label {
   display: none;
 }
+#article .link-container {
+  display: inline-block;
+  width: 450px;
+  vertical-align: middle;
+  margin: 0px 20px;
+}
+#article #info .link-container {
+  width: 250px;
+}
+#article .link-container .links {
+  margin: 0px 10px;
+}
+#article .nav {
+  text-align: justify;
+  margin: 30px 0;
+}
 </style>
 <div id="wininfo" class="info">
-  <h1><span class="win-status"></span> You spotted the child. Avoid multiple drowning.</h1>
+  <h1><span class="win-status"></span> You spotted the child. Avoid&nbsp;multiple&nbsp;drowning.</h1>
   <p>Drowning people instinctively cling and climb anything nearby. Untrained rescuers approaching them can easily be overwhelmed and drowned themselves. <span class="source">Source:&nbsp;<a href="http://www.ncbi.nlm.nih.gov/pubmed/21827292">PubMed</a></span></p>
   <p>For this reason, it is inadvisable for untrained rescuers to approach drowning people directly.</p>
   <div class="buoy">
@@ -37,12 +57,14 @@
   </ol>
   <div class="nav">
     <div class="share"></div>
-    <a class="links play-again">Play&nbsp;Another&nbsp;Video</a>
-    <a class="links" href="https://github.com/FrankSalad/spot-the-drowning-child">About&nbsp;the&nbsp;Game</a>
-    <a class="links blm" id="creator-link" href="#" onclick="return false">Black&nbsp;Lives&nbsp;Matter</a>
-    <div class="blm-reveal">
-      <iframe width="100%" height="166" scrolling="no" frameborder="no" src="" data-src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/219074591&amp;color=ef2b2f&amp;auto_play=true&amp;hide_related=false&amp;show_comments=false&amp;show_user=true&amp;show_reposts=false"></iframe>
+    <div class="link-container">
+      <a class="links play-again">Play&nbsp;Another&nbsp;Video</a>
+      <a class="links" href="https://github.com/FrankSalad/spot-the-drowning-child">About&nbsp;the&nbsp;Game</a>
+      <a class="links blm" id="creator-link" href="#" onclick="return false">Black&nbsp;Lives&nbsp;Matter</a>
     </div>
+  </div>
+  <div class="blm-reveal">
+      <iframe width="100%" height="166" scrolling="no" frameborder="no" src="" data-src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/219074591&amp;color=ef2b2f&amp;auto_play=true&amp;hide_related=false&amp;show_comments=false&amp;show_user=true&amp;show_reposts=false"></iframe>
   </div>
 </div>
 <div id="info" class="info">
@@ -75,14 +97,17 @@
   </ul>
   <p>Sometimes the most common indication that someone is drowning is that they don’t look like they’re drowning. They may just look like they are treading water and looking up. One way to be sure? Ask them, “Are you alright?” If they can answer at all – they probably are. If they return a blank stare, you may have less than 30 seconds to get to them.</p>
   <p>Parents – children playing in the water make noise. When they get quiet, you get to them and find out why.</p>
-  <div class="attribution">
-    <p>Article by <a href="http://mariovittone.com/2010/05/154/">Mario Vittone</a></p>
-    <p>Videos by <a href="https://ourparks.org/what-we-do/the-genesis-project/">The Genesis Project</a></p>
-    <p>Design by <a href="http://franciscosaldana.com">Francisco Salda&ntilde;a</a></p>
-  </div>
+
   <div class="nav">
     <div class="share"></div>
-    <a class="links play-again">Play&nbsp;Another&nbsp;Video</a>
-    <a class="links" href="https://github.com/FrankSalad/spot-the-drowning-child">About&nbsp;the&nbsp;Game</a>
+    <div class="link-container">
+      <a class="links play-again">Play&nbsp;Another&nbsp;Video</a>
+      <a class="links" href="https://github.com/FrankSalad/spot-the-drowning-child">About&nbsp;the&nbsp;Game</a>
+    </div>
+    <div class="attribution">
+      <p>Article by <a href="http://mariovittone.com/2010/05/154/">Mario Vittone</a></p>
+      <p>Videos by <a href="https://ourparks.org/what-we-do/the-genesis-project/">The Genesis Project</a></p>
+      <p>Design by <a href="http://franciscosaldana.com">Francisco Salda&ntilde;a</a></p>
+    </div>
   </div>
 </div>
