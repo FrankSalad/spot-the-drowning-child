@@ -22,9 +22,14 @@ function getDom(parentDom) {
           if (this._shareSetup === true)
             return;
           this._shareSetup = true;
-
-          new Share('#wininfo .share', ShareConfig('wininfo'));
-          new Share('#info .share', ShareConfig('info'));
+          function infoConf(shareName) {
+            var conf = ShareConfig(shareName);
+            conf.networks.pinterest.enabled = false;
+            conf.networks.email.enabled = false;
+            return conf;
+          }
+          new Share('#wininfo .share', infoConf('wininfo'));
+          new Share('#info .share', infoConf('info'));
           $('#wininfo .share label').on('click', function() {
             amplitude.logEvent("share clicked", {'location': 'wininfo'});
           });
