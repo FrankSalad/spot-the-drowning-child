@@ -120,7 +120,7 @@ function loadScript(src, callback)
         });
       },
       showCursorDot: function showCursorDot(x, y, win) {
-        var positionStyle = 'display: block; position: absolute; top:'+(y-5)+'px;left:'+(x-5)+'px;';
+        var positionStyle = 'display: block; position: absolute; top:'+(y-13)+'px;left:'+(x-12)+'px;';
         this.cursorDot.attr('style', positionStyle+'-webkit-animation: cursor-throb 1s infinite ease; animation: cursor-throb 1s infinite ease;');
         if (win) {
           this.cursorDot.addClass('win-hue');

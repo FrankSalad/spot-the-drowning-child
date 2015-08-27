@@ -19,12 +19,12 @@
   color: #3BB900;
 }
 #cursor-dot {
-  border-radius: 50%;
-  width: 5px;
-  height: 5px;
-  background: #CCC;
-  border: 1px solid #333;
+  width: 21px;
+  height: 21px;
+  background: url('cursor-icon.png') no-repeat;
   display: none;
+  border-radius: 50%;
+  border: 1px solid #AAA;
 }
 #cursor-dot.win-hue {
   background-color: #57DC28;
