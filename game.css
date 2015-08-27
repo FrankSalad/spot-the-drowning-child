@@ -16,7 +16,7 @@
   margin-right: 10px;
 }
 #scorebox.win-hue {
-  color: #3BB900;
+  color:　#CCC;
 }
 #cursor-dot {
   width: 21px;
@@ -27,7 +27,7 @@
   border: 1px solid #AAA;
 }
 #cursor-dot.win-hue {
-  background-color: #57DC28;
+  /*background-color: #FFF;*/
 }
 
 
