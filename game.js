@@ -88,13 +88,13 @@ function loadScript(src, callback)
         this.scoreBox.text(timeStr);
       },
       showPlayAgain: function showPlayAgain() {
-        this.playAgain.show();
+        this.playAgain.attr('style', 'display: inline-block;');
         this.statusLink.attr('style', '-webkit-animation: fadein 4s; animation: fadein 4s; -webkit-animation-fill-mode: forwards; animation-fill-mode: forwards;');
 
         var self = this;
         scheduleAt(function() {
           if (gameState.winTime) {
-            self.playAgain.attr('style', 'display: inline-block; animation: 2s ease 0s reverse none infinite running link-throb; -webkit-animation: 2s ease 0s reverse none infinite running link-throb;');
+            self.playAgain.attr('style', 'display: inline-block; box-shadow: inset 0 0 2px #999; animation: 2s ease 0s reverse none infinite running link-throb; -webkit-animation: 2s ease 0s reverse none infinite running link-throb;');
           }
         }, gameState.swimmerSavedSecs); // Throb after lifeguard reaches.
 
@@ -104,13 +104,13 @@ function loadScript(src, callback)
       },
       showTryAgain: function showTryAgain() {
         this.tryAgain.attr('href', '#');
-        this.tryAgain.show();
+        this.tryAgain.attr('style', 'display: inline-block;');
         this.statusLink.attr('style', '-webkit-animation: fadein 4s; animation: fadein 4s; -webkit-animation-fill-mode: forwards; animation-fill-mode: forwards;');
 
         var self = this;
         scheduleAt(function() {
           if (!gameState.winTime) {
-            self.tryAgain.attr('style', 'display: inline-block; animation: 2s ease 0s reverse none infinite running link-throb; -webkit-animation: 2s ease 0s reverse none infinite running link-throb;');
+            self.tryAgain.attr('style', 'display: inline-block; box-shadow: inset 0 0 2px #999; animation: 2s ease 0s reverse none infinite running link-throb; -webkit-animation: 2s ease 0s reverse none infinite running link-throb;');
           }
         }, gameState.swimmerSavedSecs); // Throb after lifeguard reaches.
 
@@ -236,7 +236,6 @@ function loadScript(src, callback)
     player.seekTo(0);
     dom.scoreBox.removeClass('win-hue'); // Dim previous win time.
     dom.cursorDot.removeClass('win-hue');
-    dom.statusBox.removeClass('end');
     gameState.winTime = undefined;
     gameState.pauseCount = 0;
     gameState.ended = false;

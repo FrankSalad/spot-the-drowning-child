@@ -63,15 +63,15 @@
 }
 
 @keyframes link-throb {
-    0% {border-bottom-color: #B8DBD3;}
-    50% {border-bottom-color: black;}
-    100% {border-bottom-color: #B8DBD3;}
+    0% {background-color: #333;}
+    50% {background-color: #777;}
+    100% {background-color: #333;}
 }
 
 @-webkit-keyframes link-throb {
-    0% {border-bottom-color: #B8DBD3;}
-    50% {border-bottom-color: black;}
-    100% {border-bottom-color: #B8DBD3;}
+    0% {background-color: #333;}
+    50% {background-color: #777;}
+    100% {background-color: #333;}
 }
 
 .info {
@@ -103,7 +103,7 @@ ol li {
 }
 .nav {
   text-align: left;
-  font-family: "Oxygen", sans-serif;
+  font-family: "Lora", serif;
 }
 #wininfo .nav {
   clear: both;
@@ -117,7 +117,7 @@ ol li {
   display: none;
 }
 .attribution {
-  font-family: "Oxygen", sans-serif;
+  font-family: "Lora", serif;
   font-size: 75%;
   float: right;
   clear: right;
