@@ -344,7 +344,7 @@ function loadScript(src, callback)
           dom.showStatus(pauseMsg + ' Keep looking.');
         }
       }
-      if (status === 'spotted') {
+      if (status === 'spotted' && !gameState.winTime) {
         dom.showStatus('Click the video to help the lifeguard.');
       }
       if (status === 'spotted' || status === 'saved') {
